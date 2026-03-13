@@ -18,8 +18,8 @@ The goal of this project is to generate **realistic, privacy-safe discharge summ
 
 Before we begin, ensure you have access to the compute resources.
 
-1. **Cluster Access**: Follow the guide in [instructions/cluster.md](instructions/cluster.md) to log in to the Dieterichlab cluster and set up your VPN.
-2. **LLM Setup**: Read [instructions/ollama.md](instructions/ollama.md) to learn how to run local LLMs (Ollama) on our GPUs.
+1. **Get Cluster Access (CRITICAL)**: Follow the guide in [instructions/lab.guides.wireguard.md](instructions/lab.guides.wireguard.md) to contact our admin Harald Wilhelmi and set up your VPN credentials. **This is the first step.**
+2. **LLM Setup**: Read [instructions/lab.guides.ollama.md](instructions/lab.guides.ollama.md) to learn how to run local LLMs (Ollama) on our GPUs.
 3. **Development Environment**: Set up your workspace using [instructions/jupyterlab.md](instructions/jupyterlab.md).
 
 ### 2. Immediate Tasks
@@ -101,6 +101,7 @@ To prepare for the "Clinical Turing Test", please familiarize yourself with the 
 
 - **Ollama**: [Official Documentation](https://ollama.com/)
 - **Slurm**: [Dieterichlab Cluster Guide](instructions/cluster.md)
+- **Local Guides**: [Ollama Setup (lab.guides.ollama.md)](instructions/lab.guides.ollama.md)
 
 ---
 

@@ -55,7 +55,6 @@ Please also upgrade your the python package manager `pip` in your environment.
     pip install --upgrade pip
     ```
 
-
 To make jupyter recognize the virtual environment kernel, you have to install the IPython kernel and add your environment to jupyter. Do this by executing:
 
     ```bash
@@ -67,18 +66,20 @@ Now, you can choose your environment (where you will install all your packages, 
 
 ![jupyter_lab_with_kernels](../assets/images/2022-03-29-09-31-18.png)
 
-
 If modules are not found in jupyter despite that you seemingly activated the correct kernel, please check if your kernel appears in the list of jupyter's registered kernel:
 
-	```bash
-	jupyter kernelspec list
-	```
+ ```bash
+ jupyter kernelspec list
+ ```
+
 If the kernel is there with a different name or just as a last resort, you can remove the kernel:
 
-	```bash
-	jupyter kernelspec uninstall "<your-environment-name>"
-	```
-	and then re-register it:
-	```bash
-	python3 -m ipykernel install --user --name="<venv-name>"
-	```
+ ```bash
+ jupyter kernelspec uninstall "<your-environment-name>"
+ ```
+
+ and then re-register it:
+
+ ```bash
+ python3 -m ipykernel install --user --name="<venv-name>"
+ ```
