@@ -1,11 +1,3 @@
----
-id: 33h09vj76yf8gm7yrgmow92
-title: Wireguard
-desc: ''
-updated: 1746603797680
-created: 1746603792446
----
-
 # Wireguard VPN
 
 We use wireguard as our VPN service such taht we can connect to our cluster from everywhere. Please follow the below guidelines to install wireguard on your device. During the process you have to contact our Sysadmin  <harald.wilhelmi@uni-heidelberg.de> once to get the IP adress for your wireguard configuration.
