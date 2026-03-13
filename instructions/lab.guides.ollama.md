@@ -1,11 +1,3 @@
----
-id: fnoh2zl6ug7608buepwz16u
-title: Ollam
-desc: ''
-updated: 1746603713262
-created: 1746603663217
----
-
 # Using the ollama to serve models API-based on our cluster
 
 [Ollama reference](https://ollama.com/):
