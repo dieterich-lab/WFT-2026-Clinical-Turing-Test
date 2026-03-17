@@ -15,7 +15,8 @@ module load ollama # loads the ollma binaries
 To use an LLM via Ollama you have to
 
 1) start the ollama server
-2) let a model run
+2a) either let a model run directly
+2b) query it from a Python
 
 ## 1) Start the Ollama server
 
@@ -61,10 +62,10 @@ output:
        valid_lft forever preferred_lft forever
 2: enp193s0f0np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 00:62:0b:b5:f8:fa brd ff:ff:ff:ff:ff:ff
-    inet 10.250.135.153/24 brd 10.250.135.255 scope global enp193s0f0np0 # last line contains the IP adress
+    inet 10.250.135.153/24 brd 10.250.135.255 scope global enp193s0f0np0 # <-- last line contains the IP adress
 ```
 
-2) Run a model
+## 2a) Run a model
 
 Connect to the GPU node via ssh, e.g.:
 
@@ -79,3 +80,68 @@ OLLAMA_HOST=10.250.135.153:11434 ollama run llama3.1 # you only need to specify 
 ```
 
 To get a complete overview over the Ollama model zoo, visit: <https://ollama.com/library>
+
+## 2b) Query the server from Python
+
+You can call a running Ollama server from Python. The recommended (and simplest) approach is to install the official `ollama` package; if that client API is not available in your environment, a minimal HTTP fallback using `requests` is provided.
+
+Install (recommended):
+
+```bash
+pip install ollama
+# fallback: pip install requests
+```
+
+Example using the `ollama` Python package (recommended):
+
+```python
+import os
+from ollama import Ollama
+
+# Point to your running Ollama host (example: 10.250.135.153:11434)
+HOST = os.environ.get("OLLAMA_HOST", "10.250.135.153:11434")
+client = Ollama(host=f"http://{HOST}")
+
+# Synchronous generation (replace model and prompt as needed)
+resp = client.generate(model="llama3.1", prompt="Hello from Python", max_tokens=200)
+print(resp)
+
+# Streaming example (if supported by your ollama client)
+# for chunk in client.stream(model="llama3.1", prompt="Hello from Python"):
+#     print(chunk, end="", flush=True)
+```
+
+If the `ollama` package is not available or its API differs, use this minimal HTTP fallback which posts to the Ollama REST endpoint directly:
+
+```python
+import os
+import requests
+
+HOST = os.environ.get("OLLAMA_HOST", "10.250.135.153:11434")
+url = f"http://{HOST}/api/generate"
+payload = {
+    "model": "llama3.1",
+    "prompt": "Hello from Python",
+    "max_tokens": 200,
+}
+
+resp = requests.post(url, json=payload, stream=True)
+resp.raise_for_status()
+for line in resp.iter_lines():
+    if line:
+        print(line.decode())
+```
+
+Notes:
+- Ensure `OLLAMA_HOST` points to the GPU node IP and port that is reachable from where you run the script (e.g. `export OLLAMA_HOST=10.250.135.153:11434`).
+- If your environment requires authentication or HTTPS, adapt the URL and headers accordingly.
+
+Quick verification:
+
+```bash
+pip install ollama
+export OLLAMA_HOST=10.250.135.153:11434
+python your_example.py
+```
+
+Run the script on a machine or node that can reach the GPU node's IP:port.

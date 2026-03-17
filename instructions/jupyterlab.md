@@ -1,85 +1,116 @@
 # Preparations for JupyterLab usage
 
-Our JupyterLab is accessible via `https://jupyter.dieterichlab.org/`. It will use your home directory as the root directory. In order to do so it, you have to visit your home directory *once* on our cluster. Be aware that you have to enable the WireGuard VPN Tunnel with the IP adress that you received from H. Wilhelmi to connect from outside the clinic network.  You can access your home directory on our cluster `cluster.dieterichlab.org` via `ssh`:
+## Quick overview
+
+JupyterLab is available at https://jupyter.dieterichlab.org/ and uses your home directory as the workspace root. To use it remotely, enable the WireGuard VPN and ensure your cluster account is accessible.
+
+## Access
+
+SSH into the cluster first (this registers your home directory for JupyterLab):
 
 ```bash
 ssh <username>@cluster.dieterichlab.org
 ```
 
-If you want to access files from the jupyter lab that are not located in your home directory (ressource that we will provide to you), you are always free to create symbolic links:
+If you need to expose files from other locations in your Jupyter home, create a symbolic link:
 
 ```bash
-ln -s <some folder somewhere else> .
+ln -s /path/to/shared/resource .
 ```
 
-It will be convenient (but not necessary) to create a virtual Python environment to where you install all needed modules for the project. To create a virtual Python environment you can either use the Python standard library [venv](https://docs.python.org/3/library/venv.html) or the scientific Python distribution [anaconda](https://www.anaconda.com/products/distribution) (which has to be [installed](https://docs.anaconda.com/anaconda/install/linux/) in your home directory):
+## Create a Python environment (recommended)
+
+Using an isolated environment avoids dependency conflicts. Two common options:
+
+- venv (standard library):
 
 ```bash
-mkdir "<venv-directory>"
-python3 -m venv "<venv-directory>/<venv-name>"
+python3 -m venv ~/venvs/myenv
+source ~/venvs/myenv/bin/activate
 ```
 
-or
+- conda (if you have it installed):
 
 ```bash
-conda create --name "<env-name>"
+conda create --name myenv python=3.11
+conda activate myenv
 ```
 
-Then activate your environment:
+Update pip in the active environment:
 
-    ```bash
-    source "<venv-directory>/<venv-name>/bin/ativate"
-    ```
+```bash
+python -m pip install --upgrade pip
+```
 
-    or
+Install common tools (example):
 
-    ```bash
-    conda activate <env-name>
-    ```
+```bash
+pip install ipykernel jupyterlab jupyterlab-server
+```
 
-To deactivate your environment run:
+## Register the kernel with Jupyter
 
-    ```bash
-    deactivate
-    ```
+Register your active environment so it appears as a kernel option in JupyterLab:
 
-    or
+```bash
+python -m ipykernel install --user --name=myenv --display-name="Python (myenv)"
+```
 
-    ```bash
-    conda deactivate
-    ```
+Then start JupyterLab from your account (if provided as a service, just open the URL). In JupyterLab choose the kernel named "Python (myenv)" for notebooks that require your packages.
 
-Please also upgrade your the python package manager `pip` in your environment.
+## Troubleshooting kernels and packages
 
-    ```bash
-    pip install --upgrade pip
-    ```
+- List registered kernels:
 
-To make jupyter recognize the virtual environment kernel, you have to install the IPython kernel and add your environment to jupyter. Do this by executing:
+```bash
+jupyter kernelspec list
+```
 
-    ```bash
-    python3 -m pip install --user ipykernel
-    python3 -m ipykernel install --user --name="<venv-name>"
-    ```
+- If a kernel is stale or incorrect, remove it and re-register:
 
-Now, you can choose your environment (where you will install all your packages, like PyTorch, transformers, datasets and so on) in the jupyter Lab:
+```bash
+jupyter kernelspec uninstall <kernel-name>
+python -m ipykernel install --user --name=myenv --display-name="Python (myenv)"
+```
 
-![jupyter_lab_with_kernels](../assets/images/2022-03-29-09-31-18.png)
+- If a package is missing inside Jupyter but present locally, ensure you're using the notebook kernel associated with the environment where the package is installed.
 
-If modules are not found in jupyter despite that you seemingly activated the correct kernel, please check if your kernel appears in the list of jupyter's registered kernel:
+## Tips for working in JupyterLab
 
- ```bash
- jupyter kernelspec list
- ```
+- Start with an interactive terminal inside JupyterLab to verify `python --version` and `pip list`.
+- Keep long-running training or heavy compute on batch jobs (use Slurm) rather than inside the web UI.
+- Use `requirements.txt` or `environment.yml` to reproduce environments for students:
 
-If the kernel is there with a different name or just as a last resort, you can remove the kernel:
+```bash
+pip freeze > requirements.txt
+# or for conda
+conda env export > environment.yml
+```
 
- ```bash
- jupyter kernelspec uninstall "<your-environment-name>"
- ```
+## Short checklist for students
 
- and then re-register it:
+1. Enable WireGuard if connecting remotely.
+2. SSH to `cluster.dieterichlab.org` once to ensure your home directory is registered.
+3. Create and activate an environment (`venv` or `conda`).
+4. Install `ipykernel` and register the kernel with Jupyter.
+5. Open https://jupyter.dieterichlab.org/, create a notebook, and switch to your environment kernel.
 
- ```bash
- python3 -m ipykernel install --user --name="<venv-name>"
- ```
+## Common commands
+
+```bash
+# create venv
+python3 -m venv ~/venvs/myenv
+source ~/venvs/myenv/bin/activate
+
+# install kernel and tools
+python -m pip install --upgrade pip
+python -m pip install ipykernel jupyterlab
+python -m ipykernel install --user --name=myenv --display-name="Python (myenv)"
+
+# check kernels
+jupyter kernelspec list
+```
+
+## Support
+
+If you run into environment, access, or module issues, contact the instructors or the cluster admins. Provide the exact error message and the output of `python -V` and `jupyter kernelspec list` to help debugging.
