@@ -1,4 +1,4 @@
-# WFT-2026-Clinical-Turing-Test: Synthetic Clinical Text Generation
+# Clinical Turing Test: Synthetic Clinical Text Generation
 
 Welcome to the **Clinical Turing Test** project! This repository contains the resources, instructions, and timeline for your Medical Informatics elective project. To review the kick-off presentation click [here](https://phiwi.github.io/clinical-turing-test/).
 
