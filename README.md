@@ -1,4 +1,4 @@
-# WFT-2026-Clinical-Turing-Test: Synthetic Clinical Text Generation
+# Clinical Turing Test: Synthetic Clinical Text Generation
 
 Welcome to the **Clinical Turing Test** project! This repository contains the resources, instructions, and timeline for your Medical Informatics elective project. To review the kick-off presentation click [here](https://phiwi.github.io/clinical-turing-test/).
 
@@ -8,9 +8,9 @@ The goal of this project is to generate **realistic, privacy-safe discharge summ
 
 **Key Objectives:**
 
-- **Generate**: Produce coherent discharge summaries using local LLMs (Llama 3, Mistral).
-- **Validate**: Ensure clinical consistency (diagnoses, meds, follow-up) and safety.
-- **Evaluate**: Conduct a "Clinical Turing Test" where medical experts review mixed real/synthetic notes.
+- **Generate**: Produce coherent discharge summaries using local LLMs (Llama 3, Mistral) via Ollama.
+- **Validate**: Ensure clinical consistency (diagnoses, meds, follow-up) and safety (no PHI leakage).
+- **Evaluate**: Conduct a "Clinical Turing Test" where medical experts review mixed real/synthetic notes in a blind setup.
 
 ## 🚀 Getting Started
 
@@ -24,9 +24,77 @@ Before we begin, ensure you have access to the compute resources.
 
 ### 2. Immediate Tasks
 
-- **Familiarize**: Start getting comfortable with **Prompt Engineering** (Priority 1) and **Synthetic Data Generation** (Priority 2) by checking our [Recommended Reading](#-resources). No deep dive needed yet, just get the concepts.
-- **Set Up**: Verify your cluster access and try running a "Hello World" with Ollama.
+- **Familiarize**: Check our [Recommended Reading](#-resources) to grasp the core concepts of Prompting and the Turing Test methodology.
+- **Set Up**: Verify your cluster access and try reaching the Ollama endpoint.
 - **Plan**: Review the Gantt chart below to understand the project timeline.
+
+---
+
+## 🏃 Sprint 1: The "Hello World" of Clinical Prompting (Weeks 1-2)
+
+Before we build complex automated pipelines, we need to understand how the model "thinks" and where it fails. Your goal for the first two weeks is a simple, hands-on prototype.
+
+*   **Goal**: Write a simple Python script (using the `requests` library, `openai` python client, or `LangChain`) to interact with our local Ollama server.
+*   **Task**: Prompt a local model (e.g., Llama-3-8B) to write a short discharge summary for a fictional 75-year-old patient with heart failure. 
+    *   Try one **"Zero-Shot"** prompt (just asking it to write).
+    *   Try one **"Few-Shot"** prompt (providing a template or a fake example in the prompt).
+*   **Deliverable**: A short Python script and 5 generated `.txt` files containing the artificial summaries.
+*   **Key Insight**: You will quickly notice formatting issues, overly dramatic language, or clinical hallucinations. Finding these errors is the first step—solving them will be our main task for the semester!
+
+---
+
+## ⚙️ Sprint 2: The "Persona Machine" Pipeline (Weeks 3-4)
+
+Manually typing prompts won't scale. To generate a diverse and useful dataset, LLMs need structured input to prevent them from inventing repetitive or generic patients.
+
+*   **Goal**: Build an automated generation pipeline driven by structured clinical profiles.
+*   **Task**: Create a CSV or JSON file containing 20 different "Clinical Personas" (e.g., Age, Gender, Primary Diagnosis, Comorbidities, Discharge Medications). Write a Python script that injects these personas into your refined few-shot prompt and generates a unique summary for each. *Note: Emre will provide the medical input/logic for these personas.*
+*   **Deliverable**: A robust Python pipeline and 20 highly structured, reproducible discharge summaries.
+*   **Key Insight**: The quality of synthetic data heavily depends on the variance of the input. Systematic input generation prevents the LLM from collapsing into a "default" patient persona.
+
+---
+
+## 📊 Sprint 3: Metrics & Questionnaire Design (Weeks 5-6)
+
+Before we test the data on real doctors, we need a scientific framework to measure success. "Looks good to me" is not a scientific metric!
+
+*   **Goal**: Design the evaluation framework for the Clinical Turing Test.
+*   **Task**: Base your metrics on the provided literature (Peng et al.). Create a questionnaire assessing fluency, formatting, and medical consistency (e.g., do the prescribed medications actually match the generated diagnoses?). Set up a survey tool (e.g., Google Forms or SoSci Survey). *Note: Collaborate with Emre to ensure the questions make sense to clinicians.*
+*   **Deliverable**: A finalized questionnaire ready to be distributed to our medical experts.
+*   **Key Insight**: A Turing Test is only as good as the questions asked. Vague questions yield useless data, while targeted clinical questions reveal the true limitations of the LLM.
+
+---
+
+## 🧑‍⚕️ Sprint 4: The Clinical Turing Test (Weeks 7-8)
+
+The core experiment! It is time to see if your synthetic data can fool medical experts. 
+
+*   **Goal**: Execute the blind review study.
+*   **Task**: Mix 10 real (strictly anonymized) discharge summaries with 10 of your best synthetic summaries. Distribute the blind survey to our clinical experts (Emre and colleagues) for evaluation. Analyze the results.
+*   **Deliverable**: Collected survey data and a statistical summary (e.g., "Physicians identified fake letters in X% of cases"). *Note: This aligns perfectly with your Mid-term Presentation!*
+*   **Key Insight**: Even if the AI fails the test, understanding *why* it failed (e.g., grammar was "too perfect", subtle medical contradictions, weird document structure) is a fantastic scientific result!
+
+---
+
+## 🔒 Sprint 5: Privacy Leakage Check (Weeks 9-11)
+
+Now that we have realistic data, we must ensure it is safe. Did the model accidentally memorize and leak real patient data from the few-shot examples?
+
+*   **Goal**: Evaluate the privacy guarantees of your generation pipeline.
+*   **Task**: Write a script/method to check if any specific information from your real few-shot examples (even if anonymized, check for specific unique combinations of symptoms/names) "leaked" into the synthetic outputs. 
+*   **Deliverable**: A short privacy audit report demonstrating that the synthetic data is fully decoupled from the input examples and safe for sharing.
+*   **Key Insight**: Realistic data is useless if it violates GDPR/HIPAA. True synthetic data must be completely disconnected from real individuals.
+
+---
+
+## 🏁 Finalization: Buffer & Final Evaluation (Weeks 12-15)
+
+Research always takes longer than expected. We use the last weeks of the semester to polish our work, document the code, and prepare for the final presentation.
+
+*   **Goal**: Clean up code, finalize data analysis, and prepare the Final Presentation.
+*   **Task**: Refactor your Python code into a clean, well-documented repository. Create visualizations (e.g., confusion matrices, score distributions) for your Turing Test results. Prepare your final slides.
+*   **Deliverable**: A clean GitHub repository (so the next group of students can use your pipeline!) and the Final Presentation.
+*   **Key Insight**: Good research is reproducible research. If your pipeline is easy to use, it will actively help our lab generate data for future NLP projects!
 
 ---
 
@@ -45,61 +113,39 @@ gantt
     Mid-term Presentation      :milestone, m2, 2026-05-07, 0d
     Final Presentation         :milestone, m3, 2026-06-25, 0d
 
-    section Team Formation
-    Team Formation (Mixed)     :2026-03-12, 2w
+    section Sprints (MedInf)
+    Sprint 1: Hello World & Setup      :2026-03-12, 2w
+    Sprint 2: Persona Machine Pipeline :2026-03-26, 2w
+    Sprint 3: Metrics & Questionnaire  :2026-04-09, 2w
+    Sprint 4: Clinical Turing Test     :2026-04-23, 2w
+    Sprint 5: Privacy Leakage Check    :2026-05-07, 3w
 
-    section Research & Data
-    Literature Review (Med)    :2026-03-12, 3w
-    Data Collection (Med)      :2026-03-19, 3w
-
-    section Development
-    Template Design (Mixed)    :2026-03-26, 4w
-    LLM Setup (MedInf)         :2026-04-02, 3w
-    Generation (MedInf)        :2026-04-09, 6w
-
-    section Evaluation
-    Validation (Mixed)         :2026-04-23, 6w
-    Finalization (Mixed)       :2026-06-04, 2w
+    section Finalization
+    Buffer & Final Evaluation          :2026-05-28, 4w
 ```
 
 ## 📚 Resources
 
-### Recommended Reading & Tutorials
+### Recommended Reading & Core Papers
 
-To prepare for the "Clinical Turing Test", please familiarize yourself with the following topics. We will start with **Prompt Engineering** and move to more advanced techniques like **Fine-tuning** if needed.
+To successfully execute this project, we will focus entirely on **Advanced Prompt Engineering** (In-Context Learning). We do not need complex Fine-Tuning (like LoRA or RLHF) for now. Please focus on the following core resources:
 
-#### 1. Prompt Engineering (Priority)
+#### 1. The "Must-Read" Scientific Papers (Project Core)
 
-*The art of guiding the LLM to generate exactly what we want.*
+- **The Methodology (The Turing Test)**:[A study of generative large language models for medical research and healthcare (Peng et al., 2023, npj Digital Medicine)](https://www.nature.com/articles/s41746-023-00958-w)
+  *   *Why it's important*: This paper is the exact blueprint for our evaluation. The authors generated synthetic clinical notes using a medical LLM and had physicians blindly evaluate them to see if they could spot the "fake" [1, 2]. Pay close attention to *how* they set up the questionnaire (using a 1-9 scale for readability and clinical relevance) and the statistical results they achieved [3].
+- **The Privacy Aspect**:[Controllable Synthetic Clinical Note Generation with Privacy Guarantees (Baumel et al., 2024, arXiv)](https://arxiv.org/abs/2409.07809)
+  *   *Why it's important*: This addresses the "Why are we doing this?" of our project. It explains the risk of Personal Health Information (PHI) limiting medical datasets and how synthetic generation acts as a privacy shield. It gives you a great overview of how synthetic data can retain the statistical utility of real data without compromising patient privacy [4, 5, 6]
+#### 2. Prompt Engineering (Practical Skills)
 
-- **Guide**: [OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering) - Excellent starting point for strategies like Few-Shot and Chain-of-Thought.
+*The art of guiding the LLM to generate exactly what we want, in the format we need.*
+
+- **Guide**:[OpenAI Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering) - Excellent starting point for strategies like Few-Shot prompting.
 - **Techniques**: [PromptingGuide.ai](https://www.promptingguide.ai/) - A comprehensive resource. Look specifically at "Techniques" > "Few-Shot Prompting" and "Chain-of-Thought".
 
-#### 2. Synthetic Data Generation
+### Tools & Infrastructure
 
-*Methodologies for creating artificial but realistic data.*
-
-- **Concept**: [Synthetic Data with LLMs (HuggingFace)](https://huggingface.co/blog/synthetic-data-save-costs) - A practical guide on using LLMs to create data.
-- **Clinical Context**: *Paper to search*: "ClimatText: Evaluating and Improving Faithfulness in Clinical Note Generation" (Arxiv/ACL).
-- **Privacy**: *Search term*: "Synthetic Clinical Data Generation with Differential Privacy".
-
-#### 3. Fine-tuning & LoRA (Advanced)
-
-*Adapting the model to our specific style using Low-Rank Adaptation.*
-
-- **Concept**: [LoRA Conceptual Guide](https://huggingface.co/docs/peft/conceptual_guides/lora) - Understand the intuition behind parameter-efficient fine-tuning.
-- **Practical Guide**: [HuggingFace PEFT Library](https://huggingface.co/docs/peft/) - We might use this library if we fine-tune Llama 3 on our cluster.
-
-#### 4. Reinforcement Learning (RLHF)
-
-*Optimizing for specific metrics (like clinical consistency) rather than just next-token prediction.*
-
-- **Overview**: [Illustrating RLHF (HuggingFace Blog)](https://huggingface.co/blog/rlhf) - A visual guide to Reinforcement Learning from Human Feedback.
-- **Relevance**: We can use RL to optimize our models to maximize a "Clinical Consistency Score" (e.g., ensuring discharge meds match the diagnosis).
-
-### Tools
-
-- **Ollama**: [Official Documentation](https://ollama.com/)
+- **Ollama**:[Official Documentation](https://ollama.com/)
 - **Slurm**: [Dieterichlab Cluster Guide](instructions/cluster.md)
 - **Local Guides**: [Ollama Setup (lab.guides.ollama.md)](instructions/lab.guides.ollama.md)
 
