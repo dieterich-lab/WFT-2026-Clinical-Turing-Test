@@ -4,8 +4,8 @@
 
 # SBATCH settings - adjust partition/gres/time as needed
 #SBATCH --job-name=jupyter_lab
-#SBATCH --output=examples/jupyter/jupyter_%j.out
-#SBATCH --partition=interactive
+#SBATCH --output=jupyter_%j.out
+#SBATCH --partition=gpu
 #SBATCH --gres=gpu:turing:1
 #SBATCH --mem=50G
 #SBATCH --time=04:00:00
@@ -15,19 +15,13 @@
 echo "Starting JupyterLab job on $(hostname) (SLURM_JOB_ID=${SLURM_JOB_ID})"
 
 # Load modules or activate your environment here (adjust to your site)
-module load anaconda || true
-if command -v conda >/dev/null 2>&1; then
-  # ensure conda is available in batch scripts
-  source "$(conda info --base 2>/dev/null)/etc/profile.d/conda.sh" || true
-  conda activate myenv || true
-fi
+# HERE YOU NEED TO ACTIVATE YOUR PYTHON ENVIRONMENT WITH "JUPYTER" INSTALLED
 
 # Port and bind address
 PORT=${PORT:-8888}
 BIND_IP=127.0.0.1
 
-LOGFILE=examples/jupyter/jupyter_${SLURM_JOB_ID}.log
-mkdir -p examples/jupyter
+LOGFILE=jupyter_${SLURM_JOB_ID}.log
 
 echo "Starting JupyterLab on ${BIND_IP}:${PORT}, logging to ${LOGFILE}"
 
