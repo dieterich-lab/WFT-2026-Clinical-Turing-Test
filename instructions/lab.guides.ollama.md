@@ -1,147 +1,181 @@
-# Using the ollama to serve models API-based on our cluster
+# Using Ollama + Python in one SLURM wrapper script
 
-[Ollama reference](https://ollama.com/):
+This guide shows the **simplest pattern** for teaching students how to:
 
-> Ollama is an open-source project that serves as a powerful and user-friendly platform for running LLMs on your local machine
+1) start an Ollama server inside a SLURM job  
+2) run a Python request (via heredoc) against that server  
+3) stop Ollama gracefully on exit
 
-We installed Ollama as a module on our cluster. To have access to the module, you need the following lines in your `bash.rc`:
+---
 
-```bash
-source /etc/profile.d/modules.sh  # specific for vscode users, check if you need that
-source /biosw/__modules__/modules.rc # loads the module library                                                                                                                                                                                                                                          
-module load ollama # loads the ollma binaries
-```
+## 0) Prerequisites
 
-To use an LLM via Ollama you have to
-
-1) start the ollama server
-2a) either let a model run directly
-2b) query it from a Python
-
-## 1) Start the Ollama server
-
-To start the ollama server, you need an interactive session on a GPU node that has enough VRAM to fit your model. E.g., for an 8B model (like llama3.1:8B) one A100 card is sufficient, e.g.:
+Ensure module loading is available in your shell setup (as in your first guide):
 
 ```bash
-srun --gres=gpu:ampere:1 -c 2 -p gpu --mem=50G --nodelist=gpu-g4-1 --pty bash -i
+source /etc/profile.d/modules.sh
+source /biosw/__modules__/modules.rc
+module load ollama
 ```
 
-For a 70B model (llama3.3:70B) you need 4 A100s:
+---
+
+## 1) Create the wrapper script
+
+### What is a SLURM script?
+
+A SLURM script is just a normal shell script with extra `#SBATCH` lines at the top.
+Those lines tell the scheduler what resources your job needs (GPU, memory, time, CPUs).
+
+In this example, SLURM does three things for you:
+
+1. allocates a compute node with a GPU  
+2. runs your wrapper script on that node  
+3. writes logs to the `--output` file
+
+### Why wrap Ollama + Python in one script?
+
+For teaching and reproducibility, a single wrapper script is easier than running steps manually.
+The flow is:
+
+1. start Ollama server in the background  
+2. wait until it is ready  
+3. run Python request(s) against `http://127.0.0.1:<port>`  
+4. stop Ollama cleanly via `trap`
+
+### What is a heredoc?
+
+A heredoc lets you embed Python directly in a bash script:
 
 ```bash
-srun --gres=gpu:ampere:4 -c 2 -p gpu --mem=250G --nodelist=gpu-g4-1 --pty bash -i
+python - <<'PY'
+print("hello from embedded python")
+PY
 ```
 
-Then ou have to start the server in the shell of the interactive session:
+This is useful for demos and short jobs because students only submit one file.
+
+Save as `slurm_ollama_python_demo.sh`:
 
 ```bash
-OLLAMA_KEEP_ALIVE=240h OLLAMA_CONTEXT_LENGTH=128000 OLLAMA_HOST=10.250.135.153:11434 ollama serve
-```
+#!/bin/bash
+#SBATCH --job-name=ollama_python_demo
+#SBATCH --output=ollama_python_demo_%j.log
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:ampere:1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=12G
+#SBATCH --time=00:10:00
 
-The preceding environment variables are for:
+set -euo pipefail
 
-* OLLAMA_KEEP_ALIVE=240h: to let the model be loaded for a long time (240h = 10 days...)
-* OLLAMA_CONTEXT_LENGTH=128000: to set the possible context size to the max of the concurrent models (llama, deepseek, gemma,... all have a possible context siz of 128k token, but *it must be set*, otherwise it will only consume 4096 tokens)
-* OLLAMA_HOST=10.250.135.153:11434: this is the ip adress (`10.250.135.153`) of the GPU node and specifies the port (`11434`) at the same time. When you want to reach the API from another node (e.g. a python programm) then you have to specify this adress.
+# ---------- Config ----------
+export OLLAMA_PORT="${OLLAMA_PORT:-11434}"
+export OLLAMA_HOST="127.0.0.1:${OLLAMA_PORT}"
+export OLLAMA_URL="http://${OLLAMA_HOST}"
+export OLLAMA_KEEP_ALIVE="${OLLAMA_KEEP_ALIVE:-30m}"
+export OLLAMA_MODEL="${OLLAMA_MODEL:-llama3.1:8b}"   # use a model available on your cluster
 
-To get the ip adress of a node, just log in and run `ip a`, e.g.:
+# ---------- Checks ----------
+if ! command -v ollama >/dev/null 2>&1; then
+  echo "ERROR: ollama command not found"
+  exit 1
+fi
 
-```bash
-ssh gpu-g4-1
-ip a
-```
+# ---------- Start Ollama ----------
+echo "Starting Ollama on ${OLLAMA_URL}"
+ollama serve > "ollama_server_${SLURM_JOB_ID:-local}.log" 2>&1 &
+OLLAMA_PID=$!
 
-output:
+# Always clean up, even on Ctrl+C or job cancel
+cleanup() {
+  if [[ -n "${OLLAMA_PID:-}" ]] && kill -0 "${OLLAMA_PID}" >/dev/null 2>&1; then
+    echo "Stopping Ollama (pid=${OLLAMA_PID})"
+    kill "${OLLAMA_PID}" || true
+    wait "${OLLAMA_PID}" || true
+  fi
+}
+trap cleanup EXIT INT TERM
 
-``` bash
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
-    inet 127.0.0.1/8 scope host lo
-       valid_lft forever preferred_lft forever
-    inet6 ::1/128 scope host noprefixroute 
-       valid_lft forever preferred_lft forever
-2: enp193s0f0np0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-    link/ether 00:62:0b:b5:f8:fa brd ff:ff:ff:ff:ff:ff
-    inet 10.250.135.153/24 brd 10.250.135.255 scope global enp193s0f0np0 # <-- last line contains the IP adress
-```
+# ---------- Wait for readiness ----------
+for i in {1..60}; do
+  if curl --silent --fail "${OLLAMA_URL}/api/tags" >/dev/null; then
+    echo "Ollama is ready"
+    break
+  fi
+  sleep 1
+done
 
-## 2a) Run a model
-
-Connect to the GPU node via ssh, e.g.:
-
-```bash
-ssh gpu-g4-1
-```
-
-There, run a model (here: llama3.1)
-
-```bash
-OLLAMA_HOST=10.250.135.153:11434 ollama run llama3.1 # you only need to specify the IP adress
-```
-
-To get a complete overview over the Ollama model zoo, visit: <https://ollama.com/library>
-
-## 2b) Query the server from Python
-
-You can call a running Ollama server from Python. The recommended (and simplest) approach is to install the official `ollama` package; if that client API is not available in your environment, a minimal HTTP fallback using `requests` is provided.
-
-Install (recommended):
-
-```bash
-pip install ollama
-# fallback: pip install requests
-```
-
-Example using the `ollama` Python package (recommended):
-
-```python
+# ---------- Python heredoc request ----------
+python - <<'PY'
+import json
 import os
-from ollama import Ollama
+import urllib.request
 
-# Point to your running Ollama host (example: 10.250.135.153:11434)
-HOST = os.environ.get("OLLAMA_HOST", "10.250.135.153:11434")
-client = Ollama(host=f"http://{HOST}")
+base = os.environ["OLLAMA_URL"]
+model = os.environ["OLLAMA_MODEL"]
 
-# Synchronous generation (replace model and prompt as needed)
-resp = client.generate(model="llama3.1", prompt="Hello from Python", max_tokens=200)
-print(resp)
-
-# Streaming example (if supported by your ollama client)
-# for chunk in client.stream(model="llama3.1", prompt="Hello from Python"):
-#     print(chunk, end="", flush=True)
-```
-
-If the `ollama` package is not available or its API differs, use this minimal HTTP fallback which posts to the Ollama REST endpoint directly:
-
-```python
-import os
-import requests
-
-HOST = os.environ.get("OLLAMA_HOST", "10.250.135.153:11434")
-url = f"http://{HOST}/api/generate"
 payload = {
-    "model": "llama3.1",
-    "prompt": "Hello from Python",
-    "max_tokens": 200,
+    "model": model,
+    "prompt": "Say one short sentence about medical AI.",
+    "stream": False,
 }
 
-resp = requests.post(url, json=payload, stream=True)
-resp.raise_for_status()
-for line in resp.iter_lines():
-    if line:
-        print(line.decode())
+data = json.dumps(payload).encode("utf-8")
+req = urllib.request.Request(
+    f"{base}/api/generate",
+    data=data,
+    headers={"Content-Type": "application/json"},
+    method="POST",
+)
+
+with urllib.request.urlopen(req, timeout=120) as resp:
+    body = json.loads(resp.read().decode("utf-8"))
+
+print("Model:", model)
+print("Response:", body.get("response", "").strip())
+PY
+
+echo "Done."
 ```
 
-Notes:
-- Ensure `OLLAMA_HOST` points to the GPU node IP and port that is reachable from where you run the script (e.g. `export OLLAMA_HOST=10.250.135.153:11434`).
-- If your environment requires authentication or HTTPS, adapt the URL and headers accordingly.
+---
 
-Quick verification:
+## 2) Submit and monitor
 
 ```bash
-pip install ollama
-export OLLAMA_HOST=10.250.135.153:11434
-python your_example.py
+sbatch slurm_ollama_python_demo.sh
+squeue -u "$USER"
 ```
 
-Run the script on a machine or node that can reach the GPU node's IP:port.
+When finished, check the output log:
+
+```bash
+tail -n 100 ollama_python_demo_<JOBID>.log
+```
+
+---
+
+## 3) Teaching notes
+
+- `trap cleanup EXIT INT TERM` is the key line for graceful shutdown.
+- `OLLAMA_KEEP_ALIVE=30m` keeps models warm briefly between requests without leaving them loaded for too long.
+- `OLLAMA_HOST=127.0.0.1:PORT` keeps everything local to the allocated node.
+- The Python heredoc is intentionally minimal and avoids extra dependencies.
+- For larger models, increase `--mem`, `--time`, and potentially GPUs.
+
+---
+
+## 4) Execution timeline (mental model)
+
+When students run `sbatch slurm_ollama_python_demo.sh`, this is what happens:
+
+1. **SLURM queues and allocates** a node with requested resources.  
+2. **Wrapper script starts** on that node.  
+3. **Ollama server starts** in background (`ollama serve &`).  
+4. **Readiness check loops** until `/api/tags` responds.  
+5. **Python heredoc runs** and sends one request to Ollama.  
+6. **Script exits** and `trap` calls cleanup.  
+7. **Ollama process is stopped gracefully** and logs remain in output files.
+
+This timeline helps explain why one-file wrappers are robust: setup, execution, and cleanup are all in one reproducible job.
