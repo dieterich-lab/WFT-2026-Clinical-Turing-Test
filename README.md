@@ -59,6 +59,24 @@ To build this pipeline efficiently, we divide the work into three interconnected
 
 ---
 
+### 🛠️ Sprint 2 Toolbox: Libraries & Frameworks
+
+To build robust LLM pipelines (especially for structured JSON extraction), you should move beyond raw API calls. We highly recommend using a modern LLM orchestration framework. Choose *one* of the following that best fits your workflow:
+
+**Native Integration (The Basics):**
+- [Using Ollama with Python: A Simple Guide](https://medium.com/@jonigl/using-ollama-with-python-a-simple-guide-0752369e1e55) - Good for understanding the raw mechanics.
+
+**Modern Frameworks (Choose one):**
+
+- [BoundaryML / BAML](https://docs.boundaryml.com/ref/llm-client-providers/openai-generic) - *Highly recommended!* Excellent for strict, type-safe JSON extraction (Crucial for "The Profiler" and "The Critic").
+- [Google Genkit](https://genkit.dev/docs/js/integrations/ollama/) - The newest, highly powerful orchestration framework from Google (Note: Primarily JS/TS, but Python SDK is evolving).
+- [LangChain](https://docs.langchain.com/oss/python/integrations/providers/ollama) - The classic, widely-used industry standard.
+
+☕ **For your coffee break:**
+- *Why is synthetic data currently so important?* Read this excellent, brief introduction on [Finephrase by HuggingFace](https://huggingface.co/spaces/HuggingFaceFW/finephrase#introduction).
+
+---
+
 ## 📊 Sprint 3: Metrics & Questionnaire Design (Weeks 5-6)
 
 Before we test the data on real doctors, we need a scientific framework to measure success. "Looks good to me" is not a scientific metric!
