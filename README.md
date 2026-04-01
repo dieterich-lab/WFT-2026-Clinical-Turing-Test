@@ -34,23 +34,28 @@ Before we begin, ensure you have access to the compute resources.
 
 Before we build complex automated pipelines, we need to understand how the model "thinks" and where it fails. Your goal for the first two weeks is a simple, hands-on prototype.
 
-*   **Goal**: Write a simple Python script (using the `requests` library, `openai` python client, or `LangChain`) to interact with our local Ollama server.
-*   **Task**: Prompt a local model (e.g., Llama-3-8B) to write a short discharge summary for a fictional 75-year-old patient with heart failure. 
-    *   Try one **"Zero-Shot"** prompt (just asking it to write).
-    *   Try one **"Few-Shot"** prompt (providing a template or a fake example in the prompt).
-*   **Deliverable**: A short Python script and 5 generated `.txt` files containing the artificial summaries.
-*   **Key Insight**: You will quickly notice formatting issues, overly dramatic language, or clinical hallucinations. Finding these errors is the first step—solving them will be our main task for the semester!
+- **Goal**: Write a simple Python script (using the `requests` library, `openai` python client, or `LangChain`) to interact with our local Ollama server.
+- **Task**: Prompt a local model (e.g., Llama-3-8B) to write a short discharge summary for a fictional 75-year-old patient with heart failure.
+  - Try one **"Zero-Shot"** prompt (just asking it to write).
+  - Try one **"Few-Shot"** prompt (providing a template or a fake example in the prompt).
+- **Deliverable**: A short Python script and 5 generated `.txt` files containing the artificial summaries.
+- **Key Insight**: You will quickly notice formatting issues, overly dramatic language, or clinical hallucinations. Finding these errors is the first step—solving them will be our main task for the semester!
 
 ---
 
 ## ⚙️ Sprint 2: The "Persona Machine" Pipeline (Weeks 3-4)
 
-Manually typing prompts won't scale. To generate a diverse and useful dataset, LLMs need structured input to prevent them from inventing repetitive or generic patients.
+Manually typing prompts won't scale. To generate a diverse and useful dataset, we must decouple the *clinical content* (the facts) from the *linguistic style* (the hospital jargon). We achieve this through a 3-step automated generation pipeline driven by structured clinical profiles.
 
-*   **Goal**: Build an automated generation pipeline driven by structured clinical profiles.
-*   **Task**: Create a CSV or JSON file containing 20 different "Clinical Personas" (e.g., Age, Gender, Primary Diagnosis, Comorbidities, Discharge Medications). Write a Python script that injects these personas into your refined few-shot prompt and generates a unique summary for each. *Note: Emre will provide the medical input/logic for these personas.*
-*   **Deliverable**: A robust Python pipeline and 20 highly structured, reproducible discharge summaries.
-*   **Key Insight**: The quality of synthetic data heavily depends on the variance of the input. Systematic input generation prevents the LLM from collapsing into a "default" patient persona.
+To build this pipeline efficiently, we divide the work into three interconnected modules (roles):
+
+1. **The Profiler (Information Extraction):** Extracts structured "Clinical Personas" (Age, Diagnoses, Medications) from our real, de-identified *CARDIO:DE* corpus into a clean JSON format.
+2. **The Ghostwriter (Generation):** Designs the "Cross-Pollination" prompt. Takes the JSON persona (content) and injects it into a prompt alongside a random *CARDIO:DE* letter (style template) to force the LLM to generate a novel, synthetic discharge summary.
+3. **The Critic (Validation):** Implements an automated cycle-consistency check. Extracts the facts from the *newly generated* synthetic letter and compares them against the original input JSON to detect hallucinations or missing information.
+
+- **Goal**: Build an automated, verifiable generation pipeline.
+- **Deliverable**: A robust Python pipeline (connecting the three modules) and 20 highly structured, reproducible, and automatically validated synthetic discharge summaries.
+- **Key Insight**: The quality of synthetic data heavily depends on the variance of the input and the strictness of the prompt. Systematic input generation (The Profiler) combined with automated quality control (The Critic) prevents the LLM (The Ghostwriter) from collapsing into a "default" patient persona or hallucinating facts.
 
 ---
 
@@ -58,21 +63,21 @@ Manually typing prompts won't scale. To generate a diverse and useful dataset, L
 
 Before we test the data on real doctors, we need a scientific framework to measure success. "Looks good to me" is not a scientific metric!
 
-*   **Goal**: Design the evaluation framework for the Clinical Turing Test.
-*   **Task**: Base your metrics on the provided literature (Peng et al.). Create a questionnaire assessing fluency, formatting, and medical consistency (e.g., do the prescribed medications actually match the generated diagnoses?). Set up a survey tool (e.g., Google Forms or SoSci Survey). *Note: Collaborate with Emre to ensure the questions make sense to clinicians.*
-*   **Deliverable**: A finalized questionnaire ready to be distributed to our medical experts.
-*   **Key Insight**: A Turing Test is only as good as the questions asked. Vague questions yield useless data, while targeted clinical questions reveal the true limitations of the LLM.
+- **Goal**: Design the evaluation framework for the Clinical Turing Test.
+- **Task**: Base your metrics on the provided literature (Peng et al.). Create a questionnaire assessing fluency, formatting, and medical consistency (e.g., do the prescribed medications actually match the generated diagnoses?). Set up a survey tool (e.g., Google Forms or SoSci Survey). *Note: Collaborate with Emre to ensure the questions make sense to clinicians.*
+- **Deliverable**: A finalized questionnaire ready to be distributed to our medical experts.
+- **Key Insight**: A Turing Test is only as good as the questions asked. Vague questions yield useless data, while targeted clinical questions reveal the true limitations of the LLM.
 
 ---
 
 ## 🧑‍⚕️ Sprint 4: The Clinical Turing Test (Weeks 7-8)
 
-The core experiment! It is time to see if your synthetic data can fool medical experts. 
+The core experiment! It is time to see if your synthetic data can fool medical experts.
 
-*   **Goal**: Execute the blind review study.
-*   **Task**: Mix 10 real (strictly anonymized) discharge summaries with 10 of your best synthetic summaries. Distribute the blind survey to our clinical experts (Emre and colleagues) for evaluation. Analyze the results.
-*   **Deliverable**: Collected survey data and a statistical summary (e.g., "Physicians identified fake letters in X% of cases"). *Note: This aligns perfectly with your Mid-term Presentation!*
-*   **Key Insight**: Even if the AI fails the test, understanding *why* it failed (e.g., grammar was "too perfect", subtle medical contradictions, weird document structure) is a fantastic scientific result!
+- **Goal**: Execute the blind review study.
+- **Task**: Mix 10 real (strictly anonymized) discharge summaries with 10 of your best synthetic summaries. Distribute the blind survey to our clinical experts (Emre and colleagues) for evaluation. Analyze the results.
+- **Deliverable**: Collected survey data and a statistical summary (e.g., "Physicians identified fake letters in X% of cases"). *Note: This aligns perfectly with your Mid-term Presentation!*
+- **Key Insight**: Even if the AI fails the test, understanding *why* it failed (e.g., grammar was "too perfect", subtle medical contradictions, weird document structure) is a fantastic scientific result!
 
 ---
 
@@ -80,10 +85,10 @@ The core experiment! It is time to see if your synthetic data can fool medical e
 
 Now that we have realistic data, we must ensure it is safe. Did the model accidentally memorize and leak real patient data from the few-shot examples?
 
-*   **Goal**: Evaluate the privacy guarantees of your generation pipeline.
-*   **Task**: Write a script/method to check if any specific information from your real few-shot examples (even if anonymized, check for specific unique combinations of symptoms/names) "leaked" into the synthetic outputs. 
-*   **Deliverable**: A short privacy audit report demonstrating that the synthetic data is fully decoupled from the input examples and safe for sharing.
-*   **Key Insight**: Realistic data is useless if it violates GDPR/HIPAA. True synthetic data must be completely disconnected from real individuals.
+- **Goal**: Evaluate the privacy guarantees of your generation pipeline.
+- **Task**: Write a script/method to check if any specific information from your real few-shot examples (even if anonymized, check for specific unique combinations of symptoms/names) "leaked" into the synthetic outputs.
+- **Deliverable**: A short privacy audit report demonstrating that the synthetic data is fully decoupled from the input examples and safe for sharing.
+- **Key Insight**: Realistic data is useless if it violates GDPR/HIPAA. True synthetic data must be completely disconnected from real individuals.
 
 ---
 
@@ -91,10 +96,10 @@ Now that we have realistic data, we must ensure it is safe. Did the model accide
 
 Research always takes longer than expected. We use the last weeks of the semester to polish our work, document the code, and prepare for the final presentation.
 
-*   **Goal**: Clean up code, finalize data analysis, and prepare the Final Presentation.
-*   **Task**: Refactor your Python code into a clean, well-documented repository. Create visualizations (e.g., confusion matrices, score distributions) for your Turing Test results. Prepare your final slides.
-*   **Deliverable**: A clean GitHub repository (so the next group of students can use your pipeline!) and the Final Presentation.
-*   **Key Insight**: Good research is reproducible research. If your pipeline is easy to use, it will actively help our lab generate data for future NLP projects!
+- **Goal**: Clean up code, finalize data analysis, and prepare the Final Presentation.
+- **Task**: Refactor your Python code into a clean, well-documented repository. Create visualizations (e.g., confusion matrices, score distributions) for your Turing Test results. Prepare your final slides.
+- **Deliverable**: A clean GitHub repository (so the next group of students can use your pipeline!) and the Final Presentation.
+- **Key Insight**: Good research is reproducible research. If your pipeline is easy to use, it will actively help our lab generate data for future NLP projects!
 
 ---
 
@@ -133,9 +138,10 @@ To successfully execute this project, we will focus entirely on **Advanced Promp
 #### 1. The "Must-Read" Scientific Papers (Project Core)
 
 - **The Methodology (The Turing Test)**:[A study of generative large language models for medical research and healthcare (Peng et al., 2023, npj Digital Medicine)](https://www.nature.com/articles/s41746-023-00958-w)
-  *   *Why it's important*: This paper is the exact blueprint for our evaluation. The authors generated synthetic clinical notes using a medical LLM and had physicians blindly evaluate them to see if they could spot the "fake" [1, 2]. Pay close attention to *how* they set up the questionnaire (using a 1-9 scale for readability and clinical relevance) and the statistical results they achieved [3].
+  - *Why it's important*: This paper is the exact blueprint for our evaluation. The authors generated synthetic clinical notes using a medical LLM and had physicians blindly evaluate them to see if they could spot the "fake" [1, 2]. Pay close attention to *how* they set up the questionnaire (using a 1-9 scale for readability and clinical relevance) and the statistical results they achieved [3].
 - **The Privacy Aspect**:[Controllable Synthetic Clinical Note Generation with Privacy Guarantees (Baumel et al., 2024, arXiv)](https://arxiv.org/abs/2409.07809)
-  *   *Why it's important*: This addresses the "Why are we doing this?" of our project. It explains the risk of Personal Health Information (PHI) limiting medical datasets and how synthetic generation acts as a privacy shield. It gives you a great overview of how synthetic data can retain the statistical utility of real data without compromising patient privacy [4, 5, 6]
+  - *Why it's important*: This addresses the "Why are we doing this?" of our project. It explains the risk of Personal Health Information (PHI) limiting medical datasets and how synthetic generation acts as a privacy shield. It gives you a great overview of how synthetic data can retain the statistical utility of real data without compromising patient privacy [4, 5, 6]
+
 #### 2. Prompt Engineering (Practical Skills)
 
 *The art of guiding the LLM to generate exactly what we want, in the format we need.*
