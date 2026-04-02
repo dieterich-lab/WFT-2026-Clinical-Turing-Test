@@ -18,8 +18,8 @@ source /biosw/__modules__/modules.rc
 module load ollama
 ```
 
-If students are new to Linux, explain that there is a file named `.bashrc` in their home directory.
-Commands placed in `.bashrc` are loaded automatically for every new shell session.
+If you are new to Linux: there is a file called `.bashrc` in your home directory.
+If you place these commands in `.bashrc`, they will be loaded automatically in every new shell session.
 
 Example:
 
@@ -154,15 +154,68 @@ echo "Done."
 
 ## 3) Submit and monitor
 
+Use this sequence for your first SLURM job.
+
+### Step 1: Submit the job with `sbatch`
+
+`sbatch` is the SLURM command that sends your script to the scheduler.
+The scheduler then finds a matching node (based on your `#SBATCH` settings) and runs the script there.
+
 ```bash
 sbatch slurm_ollama_python_demo.sh
+```
+
+You will get output like:
+
+```text
+Submitted batch job 123456
+```
+
+The number (`123456`) is your **job ID**.
+
+### Step 2: Check your queued/running jobs with `squeue`
+
+Use `squeue` to monitor whether your job is waiting (`PD`) or running (`R`):
+
+```bash
 squeue -u "$USER"
 ```
+
+Helpful version with custom columns:
+
+```bash
+squeue -u "$USER" -o "%.18i %.9P %.20j %.8T %.10M %.6D %R"
+```
+
+Interpretation:
+- `PD` = Pending (still waiting for resources)
+- `R` = Running
+- `%R` column often tells you why it is pending (for example, waiting for GPU resources)
+
+### Step 3: Check available partitions/nodes with `sinfo`
+
+Use `sinfo` to understand which partitions are available and their status:
+
+```bash
+sinfo
+```
+
+This helps when troubleshooting why a job is waiting, for example if a partition is busy or drained.
+
+### Step 4: Read logs when the job starts or finishes
 
 When finished, check the output log:
 
 ```bash
 tail -n 100 ollama_python_demo_<JOBID>.log
+```
+
+If you know the job ID, replace `<JOBID>` with that number.
+
+Example:
+
+```bash
+tail -n 100 ollama_python_demo_123456.log
 ```
 
 ---
