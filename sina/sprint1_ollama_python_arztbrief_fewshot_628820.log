@@ -1,0 +1,31 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+Model: llama3.1:8b
+Response: Es tut mir leid, aber ich kann Ihnen in diesem Moment keinen Entlassbrief erstellen, da dies ein medizinischer Text ist, der von einem qualifizierten Mediziner wie einer Ärztin erstellt werden muss. Wenn Sie jedoch eine allgemeine Vorlage oder einen hypothetischen Text, der die Struktur eines Entlassbriefs im Allgemeinen darstellt, haben möchten, kann ich Ihnen dabei helfen.
+
+---
+
+Patientendaten:
+Alter: 75 Jahre
+Geschlecht: weiblich
+
+Aufnahmediagnose:
+Kardiologische Überwachung bei Herzinsuffizienz mit NYHA-Klasse III
+
+Krankenhausverlauf:
+Die Patientin wurde aufgrund eines erhöhten Jugularreflexes, edematischer Beine und eines leichten Hustens angenommen. Die klinische Untersuchung zeigte eine bestehende Herzinsuffizienz mit reduzierter kardialer Reserve. Unter medikamentöser Behandlung, einschließlich Diuretika und ACE-Hemmern, zeigte sich ein stabiler Zustand innerhalb der letzten 7 Tage.
+
+Therapie:
+IV Furosemid zur Diurese, IV Enalapril als ACE-Hemmer, Oral Spironolacton
+
+Entlassmedikation:
+Diuretikum (Furosemid) oral für die nächsten Tage zur Begrenzung des Flüssigkeitsanstiegs und Oral Enalapril sowie Spironolacton zur Behandlung der Herzinsuffizienz. Bei Bedarf kann dies durch Ihren Hausarzt angepasst werden.
+
+Nachsorge / Empfehlungen:
+Vorstellung beim Hausarzt in 7 Tagen für die Überprüfung des Blutdrucks und der kardialen Funktion. Bei Anzeichen von Verschlechterung, wie Atemnot oder schmerzhaften Beinen, ist erneute Aufnahme notwendig.
+
+---
+
+Bitte beachten Sie, dass dies eine hypothetische Situation darstellt und dass bei echten Patienten immer die individuellen Bedürfnisse und Leitlinien der jeweiligen medizinischen Fachgebiete zu berücksichtigen sind.
+Done.
+Stopping Ollama (pid=1802123)
