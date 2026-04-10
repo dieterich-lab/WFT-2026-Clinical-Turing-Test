@@ -72,6 +72,8 @@ To build robust LLM pipelines (especially for structured JSON extraction), you s
 - [Google Genkit](https://genkit.dev/docs/js/integrations/ollama/) - The newest, highly powerful orchestration framework from Google (Note: Primarily JS/TS, but Python SDK is evolving).
 - [LangChain](https://docs.langchain.com/oss/python/integrations/providers/ollama) - The classic, widely-used industry standard.
 
+For convenience, we've also added ready-to-run example scripts so you can quickly start an Ollama server and send test queries without copy-pasting from multiple guides: [examples/slurm_ollama_server_playground.sh](examples/slurm_ollama_server_playground.sh) and [examples/ollama_query.py](examples/ollama_query.py). These scripts mirror the patterns in the Ollama guide and are provided to help students get started faster and reduce copy/paste errors.
+
 ☕ **For your coffee break:**
 - *Why is synthetic data currently so important?* Read this excellent, brief introduction on [Finephrase by HuggingFace](https://huggingface.co/spaces/HuggingFaceFW/finephrase#introduction).
 
