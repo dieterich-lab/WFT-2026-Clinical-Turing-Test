@@ -83,20 +83,20 @@ class ArztbriefEvaluator:
         - "konsistenz_bewertung": 1-100
         """
         
-        # try:
-        #     client = ollama.Client(host=base)
-        #     response = client.chat(
-        #         model=self.model_name,
-        #         messages=[{'role': 'user', 'content': prompt}],
-        #         format='json',
-        #         options={'temperature': 0.1}
-        #     )
-        #     qualitative_eval = json.loads(response['message']['content'])
-        # except Exception as e:
-        #     qualitative_eval = {"error": f"Ollama Fehler: {str(e)}"}
+        try:
+            client = ollama.Client(host=base)
+            response = client.chat(
+                model=self.model_name,
+                messages=[{'role': 'user', 'content': prompt}],
+                format='json',
+                options={'temperature': 0.1}
+            )
+            qualitative_eval = json.loads(response['message']['content'])
+        except Exception as e:
+            qualitative_eval = {"error": f"Ollama Fehler: {str(e)}"}
 
-        # return {"metriken": stats, "llm_analyse": qualitative_eval}
-        return {"metriken": stats}
+        return {"metriken": stats, "llm_analyse": qualitative_eval}
+        #return {"metriken": stats}
 
     def vergleiche_jsons(self, json_1, json_2):
         # Vergleicht zwei JSON-Objekte und gibt die Unterschiede zurück.

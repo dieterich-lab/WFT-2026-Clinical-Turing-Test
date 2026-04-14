@@ -2,10 +2,9 @@
 #SBATCH --job-name=ollama_python_demo
 #SBATCH --output=ollama_python_validation_%j.log
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:ampere:1
+#SBATCH --gres=gpu:turing:1
 #SBATCH --cpus-per-task=2
 #SBATCH --mem=12G
-#SBATCH --time=00:10:00
 
 set -euo pipefail
 
@@ -49,6 +48,7 @@ for i in {1..60}; do
 done
 
 # ---------- Run Python file ----------
-python3 llm_validation.py
+source /home/sthuerwaechter/WFT-2026-Clinical-Turing-Test/venv/bin/activate
+python llm_validation.py
 
 echo "Done."
