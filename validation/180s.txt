@@ -1,0 +1,42 @@
+Patient: [Pseudo Name]
+Geburtsdatum: 02.09.1977 (Alter: 55 Jahre)
+Aufnahmedatum: 09.07.2033
+
+Sehr geehrte Frau Kollegin, sehr geehrter Herr Kollege,
+
+wir berichten Ihnen nachfolgend über die ambulante kardiologische Untersuchung Ihres Patienten, der sich zur Abklärung einer Belastungsdyspnoe sowie zum Ausschluss eines persistierenden Foramen ovale (PFO) vorstellte.
+
+DIAGNOSEN:
+- Belastungsdyspnoe (NYHA-Stadium II), V.a. Post-COVID-Syndrom (Infektion 12/2032)
+- Leichtgradige Mitralklappeninsuffizienz
+- Z.n. transienter ischämischer Attacke (TIA) in 2026, aktuell residuenfrei
+- Hyperreagibles Bronchialsystem (Erstdiagnose 03/2032)
+- Z.n. Bandscheibenvorfall (B-ORG), konservativ behandelt
+- Kardiovaskuläres Risikoprofil: Ehemaliger Nikotinabusus (ca. 20 py), aktuell karent
+- Pollenallergie
+
+ANAMNESE UND AKTUELLER VERLAUF:
+Die Vorstellung erfolgte zur kardiologischen Abklärung bei klinisch führender Belastungsdyspnoe. Der Patient berichtet über eine Luftnot beim Steigen von mehr als zwei Etagen (entsprechend NYHA II). Diese Symptomatik sei erstmals nach einer COVID-19-Erkrankung Ende 2032 aufgetreten. Typische Angina Pectoris, Schwindel oder Synkopen liegen nicht vor. Der Patient berichtet über eine Nykturie (ca. 2-fach pro Nacht). Hausärztliche Blutdruckmessungen ergaben Werte zwischen 130-140/90 mmHg.
+
+KÖRPERLICHE UNTERSUCHUNG:
+Guter AZ, EZ (Größe 182 cm, Gewicht 97 kg). Blutdruck 130/90 mmHg, Herzfrequenz 65/min, rhythmisch. Herztöne rein, keine pathologischen Geräusche. Lunge vesikuläres Atemgeräusch, keine Nebengeräusche. Keine peripheren Ödeme, kein Ikterus.
+
+APPARATIVE BEFUNDE:
+Ruhe-EKG: Sinusrhythmus, Herzfrequenz 65/min, Steiltyp. PQ 134 ms, QRS 97 ms, QTc 375 ms. Keine signifikanten Erregungsrückbildungsstörungen.
+
+Transthorakale Echokardiographie: Normal großer, leicht hypertrophierter linker Ventrikel mit guter systolischer Pumpfunktion. Keine regionalen Wandbewegungsstörungen. Die Vorhöfe sind grenzwertig weit. Es zeigt sich eine leichtgradige Mitralinsuffizienz. Kein Perikarderguss nachweisbar.
+
+Transösophageale Echokardiographie (TEE): Kein Nachweis eines persistierenden Foramen ovale (PFO), auch unter Valsalva-Manöver kein Shunt nachweisbar. Ausschluss intrakardialer Thromben. In der Aorta descendens zeigen sich flächige Plaques (max. Dicke 5,6 mm), die Aorta ascendens ist normal weit (32 mm).
+
+ZUSAMMENFASSUNG UND BEURTEILUNG:
+Es zeigt sich ein klinisch stabiler kardialer Befund mit guter linksventrikulärer Funktion. Die Mitralinsuffizienz ist lediglich leichtgradig und erklärt die Belastungseinschränkung nicht ausreichend. Ein persistierendes Foramen ovale konnte mittels TEE ausgeschlossen werden. Die seit der Covid-19-Infektion bestehende Belastungsdyspnoe ist am ehesten im Rahmen eines Post-Covid-Syndroms zu werten.
+
+EMPFEHLUNGEN:
+Wir empfehlen die Fortführung der Therapie mit ASS 100 mg 1-0-0. Eine konsequente Einstellung der kardiovaskulären Risikofaktoren wird angeraten. Wir empfehlen regelmäßige körperliche Aktivität (z.B. Radfahren oder Schwimmen, 3-4x wöchentlich für 40-50 Min.) sowie Gewichtsreduktion und kochsalzarme Ernährung. Regelmäßige fachärztliche Kontrollen sind indiziert.
+
+Wir danken für die freundliche Überweisung.
+
+Mit freundlichen Grüßen
+
+[Name]
+Ärztlicher Direktor / Oberarzt / Assistenzarzt

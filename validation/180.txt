@@ -1,0 +1,71 @@
+Aufnahmedatum: <[Pseudo] 2033-07-09 >
+Geburtsdatum: <[Pseudo] 1977-09-02 >
+Alter: 55
+
+über Ihren Patienten B-SALUTE B-PER I-PER geboren am <[Pseudo] 02/09/1977> wh. B-PLZ B-LOC B-ADDR I-ADDR der sich am in unserer Ambulanz vorstellte.
+
+Aktuell:
+- Kardiologische Abklärung bei Belastungsdyspnoe einschließlich transösophagealer Echokardiographie
+-UNK- Echokardiographisch gute biventrikuläre Pumpfunktion ohne höhergradige Klappenvitien -LRB- aktuell leichtgradige Mitralinsuffizienz -RRB-
+-UNK- Kein Nachweis eines persistierenden Foramen ovale
+-UNK- Klinisch stabiler kardialer Verlauf
+
+Diagnosen:
+- Z.n. COVID-19 <[Pseudo] 12/2032>
+- Hyperreagibles Bronchialsystem ED <[Pseudo] 03/2032>
+- Z.n. TIA ohne Residuen <[Pseudo] 2026>
+- Z.n. Bandscheibenvorfall in der B-ORG und B-ORG
+-LRB- konservative Therapie -RRB-
+
+Kardiovaskuläre Risikofaktoren: ehemaliger Nikotinabusus, karent seit B-DATE, kumulativ ca. 20 py
+Allergien: Pollen
+
+Anamnese:
+Die ambulante Vorstellung erfolgt zur kardiologischen Abklärung einschließlich transösophagealer Echokardiographie bei Belastungsdyspnoe und V.a. Mitralinsuffizienz sowie anamnestisch persistierendem Foramen ovale. Im Alltag bestehe eine leicht eingeschränkte Belastbarkeit -LRB- 2 Etagen Treppensteigen möglich -RRB- ; bei 3 Etagen Treppensteigen bestehe inadäquate Belastungsdyspnoe -LRB- entsprechend NYHA II -RRB- . Die Belastungsdyspnoe sei nach durchgemachter COVID-19-Erkrankung im B-MONTH <[Pseudo] 2032> aufgetreten. Es bestehen keine typischen pectanginösen Beschwerden bei Belastung oder in Ruhe. Palpitationen, Schwindel sowie stattgehabte Synkopen werden verneint. Es bestehe diskrete Nykturie mit ca. 2-facher Miktion pro Nacht. Periphere Ödeme seien bei Gewichtskonstanz nicht aufgefallen. Die häuslichen Blutdruckmessungen ergäben Werte um 130-140/90 mmHg.
+
+Bisherige Medikation:
+ASS 100 mg 1-0-0
+
+Körperliche Untersuchung:
+AZ: gut
+EZ: 182 cm, 97 kg
+HF: 65/min, regelmäßig
+RR: 130/90 mmHg
+Keine Cyanose, Anämiezeichen, Ikterus.
+HT: rein, keine path. Geräusche
+Lunge: vesikuläres AG, keine NG
+Periphere Ödeme: keine
+sonstige Auffälligkeiten: keine
+
+Ruhe-EKG:
+Normofrequenter Sinusrhythmus, Hf 65/min, Steiltyp. PQ 134 ms, QRS 97 ms, QTc 375 ms. Regelrechte R-Progression, R/S Umschlag in V3/V4, keine S-Persistenz. Keine signifikanten Erregungsrückbildungsstörungen.
+
+Transthorakale Echokardiographie:
+Normal großer, septal betont leicht hypertrophierter linker Ventrikel mit guter systolischer Pumpfunktion ohne sicher abgrenzbare regionale Kontraktionsstörungen. Erhaltene longitudinale Funktion. Regelrechte diastolische LV-Funktion. LA grenzwertig weit, RA und RV noch normal groß, gute RV-Funktion. Kein Perikarderguss nachweisbar. Vena cava inferior nicht gestaut. Dopplersonographisch leichtgradige Mitralklappeninsuffizienz. Übrige Klappen sonographisch und dopplersonographisch regelrecht. Der systolische PA-Druck in Ruhe ist bei fehlender Trikuspidalkalppeninsuffizienz nicht ableitbar.
+
+Transoesophageale Echokardiographie:
+Farbdopplersonographisch kein Nachweis eines Persistierenden Foramen ovale, kein Kontrastmittelübertritt von RA nach LA unter Valsalva-Manöver nachweisbar. Kein Nachweis intrakardialer Thromben. Erhaltene Flussgeschwindigkeiten im linken Vorhofohr. 2 rechte und 2 linke Lungenvenen münden regelrecht in den linken Vorhof ein. Aorta ascendens normal weit -LRB- max. 32mm -RRB- , flächiger Plaque im Bereich der Aorta descendens -LRB- max. Dicke 56mm, 34cm ab Zahnreihe -RRB- . Normal großer, septal betont leicht hypertrophierter linker Ventrikel mit guter systolischer Pumpfunktion ohne sicher abgrenzbare regionale Kontraktionsstörungen. Erhaltene longitudinale Funktion. Regelrechte diastolische LV-Funktion. LA grenzwertig weit, RA und RV noch normal groß, gute RV-Funktion. Kein Perikarderguss nachweisbar. Vena cava inferior nicht gestaut. Dopplersonographisch leichtgradige Mitralklappeninsuffizienz. Übrige Klappen sonographisch und dopplersonographisch regelrecht. Der systolische PA-Druck in Ruhe ist bei fehlender Trikuspidalklappeninsuffizienz nicht ableitbar.
+
+Zusammenfassung:
+Die ambulante Vorstellung erfolgte zur weiteren kardiologischen Abklärung bei Belastungsdyspnoe sowie Z.n. TIA <[Pseudo] 2026> und anamnestischem Foramen ovale sowie V.a. höhergradige Mitralinsuffizienz. Subjektiv wird von einem klinisch stabilen kardialen Verlauf berichtet.
+
+Echokardiographisch fand sich eine gute linksventrikuläre Pumpfunktion ohne relevante Klappenvitien.
+Über die transösophageale Echokardiographie war kein persistierendes Foramen ovale nachweisbar. Die Mitralinsuffizienz zeigte sich aktuell leichtgradig.
+
+In der Zusammenschau der heutigen klinischen und apparativen Befunde gehen wir von einem stabilen kardialen Befund aus. Die seit der Covid-19-Infektion erinnerlich aufgetretene Belastungsdyspnoe ist daher möglicherweise im Sinne eines Post-Covid-Syndroms zu werten.
+
+Wir empfehlen die konsequente Einstellung der kardiovaskulären Risikofaktoren gemäß den aktuellen Leitlinien, sowie die Fortführung der u.a. medikamentösen Therapie. Wir empfehlen regelmäßige körperliche Aktivität 3 bis 4 Mal pro Woche für ca. 40 bis 50 Minuten in Form von zum Beispiel B-ORG I-ORG Radfahren, Schwimmen, I-ORG oder Ergometertraining, sowie weiterhin nichtmedikamentösen Maßnahmen -LRB- z.B. Reduktion des Salzkonsums, mediterrane Diät und Gewichtsreduktion -RRB- .
+
+Wir empfehlen regelmäßige hausärztliche sowie fachärztliche -LRB- einschließlich kardiologische -RRB- Kontrollen. Bei Auftreten von Beschwerden oder Komplikationen sind wir jederzeit gerne bereit, den Patienten wiederzusehen -in Notfällen über unsere B-ORG I-ORG I-ORG unter B-PHONE
+
+Aktuelle Medikation:
+ASS 100 mg 1-0-0
+
+Selbstverständlich können auch preiswertere, wirkstoffgleiche Präparate anderer Hersteller verordnet werden.
+
+Wir danken für die vertrauensvolle Zusammenarbeit und stehen bei Rückfragen selbstverständlich gerne zur Verfügung.
+
+Mit freundlichen Grüßen
+B-PER
+B-TITLE I-TITLE I-TITLE B-PER I-PER B-TITLE I-TITLE I-TITLE B-PER I-PER B-PER I-PER
+Ärztlicher Direktor Oberarzt Assistenzarzt
