@@ -1,89 +1,107 @@
-**Using Python virtual environments on the cluster**
+# Python Virtual Environment Guide for Students
 
-- **Purpose:** Create an isolated Python environment for a project using `python -m venv`. This lets you install packages without sudo and avoids conflicts with system Python.
+Use this guide to create an isolated Python environment on the cluster.
+This is required because students do not have sudo rights.
 
-**Quick Start**
+## 1) Why venv is required
 
-1. Pick a directory for your project and change into it:
+A virtual environment lets you:
+
+- install packages without sudo
+- avoid conflicts between projects
+- keep runs reproducible with `requirements.txt`
+
+## 2) Create a project folder
 
 ```bash
 mkdir -p ~/projects/myfirstproject
 cd ~/projects/myfirstproject
 ```
 
-2. Create a virtual environment named `myfirstproject`:
+## 3) Create and activate your venv
 
 ```bash
-# Use python or python3 depending on what's available
-python3 -m venv myfirstproject
+python3 -m venv my_env
+source my_env/bin/activate
 ```
 
-3. Activate the environment:
+If `python3` is unavailable, try `python`.
+
+After activation, your prompt usually shows `(my_env)`.
+
+## 4) Install packages inside the venv
 
 ```bash
-source myfirstproject/bin/activate
+python -m pip install --upgrade pip
+pip install numpy scipy
 ```
 
-After activation your shell prompt usually changes to show the venv name. While active, `pip install` will install into the venv only.
+All package installs now go into `my_env`.
 
-4. Install packages you need (example):
-
-```bash
-pip install numpy scipy jupyterlab
-```
-
-5. When done, deactivate:
-
-```bash
-deactivate
-```
-
-**Why this is helpful on the cluster**
-
-- You do not need `sudo` to install packages inside the venv.
-- Each project can have its own package versions, avoiding conflicts.
-- Reproducibility: you can export a `requirements.txt` and recreate the environment later.
-
-**Useful commands**
-
-- Check Python path while venv is active:
+## 5) Verify the active interpreter
 
 ```bash
 which python
 python --version
 ```
 
-- Export installed packages:
+`which python` should point to your project `my_env` path.
+
+## 6) Save and restore dependencies
+
+Export:
 
 ```bash
 pip freeze > requirements.txt
 ```
 
-- Recreate environment from `requirements.txt`:
+Recreate later:
 
 ```bash
-python3 -m venv myfirstproject
-source myfirstproject/bin/activate
+python3 -m venv my_env
+source my_env/bin/activate
 pip install -r requirements.txt
 ```
 
-**Troubleshooting**
+## 7) Use this venv in JupyterHub (optional)
 
-- If `python3` is not available, try `python`.
-- If `venv` module is missing (rare), install `python3-venv` in a personal environment or ask the sysadmin. Typically on shared clusters `venv` is available.
-
-**Tips for working with Jupyter on the cluster**
-
-- To use this venv with Jupyter, install `ipykernel` and register a kernel:
+Register your environment as a kernel:
 
 ```bash
-source myfirstproject/bin/activate
+source my_env/bin/activate
 pip install ipykernel
 python -m ipykernel install --user --name=myfirstproject --display-name "Python (myfirstproject)"
 ```
 
-- Then in Jupyter choose the kernel named "Python (myfirstproject)".
+Then select `Python (myfirstproject)` in JupyterHub notebooks.
 
----
+## 8) Deactivate when done
 
-If you want, I can: add this guide to a README index, create a short slide for students, or write a companion guide that uses `virtualenv` or `conda`. What would you like next?
+```bash
+deactivate
+```
+
+## 9) Troubleshooting
+
+### pip installs to wrong location
+
+- You are likely outside the venv.
+- Re-run `source my_env/bin/activate`.
+
+### ModuleNotFoundError in notebook
+
+- Notebook kernel is different from your venv.
+- Switch kernel to `Python (myfirstproject)`.
+
+### venv command fails
+
+- Try `python -m venv my_env` instead of `python3`.
+- If venv is missing on the system, ask instructors/admin.
+
+## 10) Next step in onboarding
+
+Continue with:
+
+1. [instructions/slurm.md](slurm.md)
+2. [instructions/ollama.md](ollama.md)
+3. [instructions/jupyterhub.md](jupyterhub.md)

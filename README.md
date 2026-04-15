@@ -18,9 +18,23 @@ The goal of this project is to generate **realistic, privacy-safe discharge summ
 
 Before we begin, ensure you have access to the compute resources.
 
-1. **Get Cluster Access (CRITICAL)**: Follow the guide in [instructions/lab.guides.wireguard.md](instructions/lab.guides.wireguard.md) to contact our admin Harald Wilhelmi and set up your VPN credentials. **This is the first step.**
-2. **LLM Setup**: Read [instructions/lab.guides.ollama.md](instructions/lab.guides.ollama.md) to learn how to run local LLMs (Ollama) on our GPUs.
-3. **Development Environment**: Set up your workspace using [instructions/jupyterlab.md](instructions/jupyterlab.md).
+1. **Start Here (CRITICAL)**: Follow [instructions/start_here.md](instructions/start_here.md) for the full student pipeline.
+2. **Get Cluster Access**: Follow [instructions/wireguard.md](instructions/wireguard.md) to contact our admin Harald Wilhelmi and set up your VPN credentials.
+3. **LLM Setup**: Read [instructions/ollama.md](instructions/ollama.md) to run Ollama + Python on Slurm.
+4. **Development Environment**: Use [instructions/jupyterhub.md](instructions/jupyterhub.md) for notebook workflows and kernels.
+
+### Student Onboarding Path (Use In This Order)
+
+If you are new to clusters, follow this exact route:
+
+1. [instructions/start_here.md](instructions/start_here.md)
+2. [instructions/wireguard.md](instructions/wireguard.md)
+3. [instructions/cluster.md](instructions/cluster.md)
+4. [instructions/venv.md](instructions/venv.md)
+5. [instructions/slurm.md](instructions/slurm.md)
+6. [instructions/ollama.md](instructions/ollama.md)
+7. [instructions/ollama_playground.md](instructions/ollama_playground.md) (for debugging)
+8. [instructions/jupyterhub.md](instructions/jupyterhub.md) (optional notebooks)
 
 ### 2. Immediate Tasks
 
@@ -173,7 +187,7 @@ To successfully execute this project, we will focus entirely on **Advanced Promp
 
 - **Ollama**:[Official Documentation](https://ollama.com/)
 - **Slurm**: [Dieterichlab Cluster Guide](instructions/cluster.md)
-- **Local Guides**: [Ollama Setup (lab.guides.ollama.md)](instructions/lab.guides.ollama.md)
+- **Local Guides**: [Student Start Guide](instructions/start_here.md), [Slurm Basics](instructions/slurm.md), [Ollama Playground (debugging)](instructions/ollama_playground.md)
 
 ---
 

@@ -9,7 +9,7 @@ Files created by this guide:
 
 ---
 
-1) Start the Ollama server on a dedicated GPU node
+## 1) Start the Ollama server on a dedicated GPU node
 
 Create `slurm_ollama_server_playground.sh` and submit it with `sbatch`.
 
@@ -74,7 +74,7 @@ Notes:
 
 ---
 
-1) Querying the server from an interactive compute session (recommended for quick tests)
+## 2) Querying the server from an interactive compute session (recommended for quick tests)
 
 Open a separate interactive session on the cluster (compute/general partition):
 
@@ -93,7 +93,8 @@ source ~/projects/myfirstproject/myfirstproject/bin/activate
 - Discover and export the server URL (the server job wrote this file):
 
 ```bash
-export OLLAMA_URL=$(ls -1 ~/ollama_server_*.url | tail -n1 && cat $(ls -1 ~/ollama_server_*.url | tail -n1))
+URL_FILE=$(ls -1 ~/ollama_server_*.url | tail -n1)
+export OLLAMA_URL=$(cat "$URL_FILE")
 export OLLAMA_MODEL="llama3.1:8b"
 # Alternatively, set OLLAMA_URL manually if you know the node: export OLLAMA_URL="http://node-name:11434"
 ```
@@ -121,9 +122,9 @@ If you prefer a reusable script, you can still create `ollama_query.py` and run 
 
 ---
 
-1) Querying from JupyterHub
+## 3) Querying from JupyterHub
 
-If you prefer Jupyter, open a notebook via the class JupyterHub (see the class Jupyter guide). In a Python cell paste the same request code (the `urllib.request` snippet) or call the script with `%run ollama_query.py`. Before running the cell, set the environment variables in the notebook (or set them in the terminal that launched the notebook server):
+If you prefer Jupyter, open a notebook via [instructions/jupyterhub.md](jupyterhub.md). In a Python cell paste the same request code (the `urllib.request` snippet) or call the script with `%run ollama_query.py`. Before running the cell, set the environment variables in the notebook (or set them in the terminal that launched the notebook server):
 
 ```python
 import os
@@ -135,7 +136,7 @@ Then run the request cell.
 
 ---
 
-Troubleshooting & security notes
+## 4) Troubleshooting & security notes
 
 - If the client cannot reach the server across nodes, your cluster may block node-to-node ports. In that case:
   - Run the client on the same node (use `srun --nodelist=<server_node> --pty bash -i`) so `127.0.0.1` works.

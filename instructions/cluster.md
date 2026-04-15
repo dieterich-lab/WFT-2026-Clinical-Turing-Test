@@ -1,138 +1,140 @@
-# Using CPUs/GPUs on the Dieterichlab Cluster
+# Dieterichlab Cluster Guide
 
-## Contact & Login
+This guide explains how to access and understand the cluster resources used in this project.
 
-Besides running scripts for visualization and testing on the JupyterLab playground, you will eventually be in need to run larger programs on our cluster. Be aware that you have to enable the WireGuard VPN Tunnel with the IP adress that you received from H. Wilhelmi to connect from outside the clinic network on our cluster.  You can access your home directory on our cluster `cluster.dieterichlab.org` via `ssh`:
+## 1) Access
 
-# Using CPUs/GPUs on the Dieterichlab Cluster
-
-## Quick overview
-
-This guide helps you get started using the Dieterichlab cluster for CPU/GPU jobs. Key tasks:
-
-- Connect via SSH (WireGuard VPN required when offsite).
-- Use `srun` for interactive debugging and `sbatch` for batch jobs.
-- Inspect resources with `sinfo`, `squeue`, and `gres.conf`.
-
-## Access & prerequisites
-
-- If you're offsite, enable the WireGuard VPN and use the IP assigned by the instructors.
-- SSH into the cluster:
+If you are outside the clinic network, connect WireGuard first.
+Then log in:
 
 ```bash
 ssh <username>@cluster.dieterichlab.org
 ```
 
-- Load environment modules as needed (ask instructors for required modules):
+If SSH does not work, fix VPN/access first before debugging Slurm jobs.
+
+## 2) Quick cluster facts
+
+These values are taken from current Slurm configuration (`/etc/slurm/slurm.conf` and `/etc/slurm/gres.conf`).
+
+- GPU GRES enabled: `gpu`
+- Default partition: `general`
+- Main GPU partition: `gpu`
+
+GPU nodes currently configured:
+
+- `gpu-g1-1`: 2x `pascal` GPUs
+- `gpu-g1-2`: 2x `pascal` GPUs
+- `gpu-g2-1`: 4x `turing` GPUs
+- `gpu-g3-1`: 4x `turing` GPUs
+- `gpu-g4-1`: 4x `ampere` GPUs
+- `gpu-g5-1`: 3x `hopper` GPUs
+
+That means requests like these are valid:
 
 ```bash
-module load <module-name>
-```
-
-## Quickstart: run a batch job (sbatch)
-
-Create a job script (see `../scripts/slurm.sh` for an example). Example header for a GPU job:
-
-```bash
+#SBATCH --gres=gpu:ampere:1
 #SBATCH --gres=gpu:turing:1
-#SBATCH --job-name=my_job
-#SBATCH --output=logs/my_job.out
-#SBATCH --partition=gpu
-#SBATCH --mem=32G
-
-# command to run, e.g.:
-python train.py --config configs/exp.yaml
+#SBATCH --gres=gpu:hopper:1
 ```
 
-Submit the job:
+## 3) GPU VRAM and Ollama model fit (practical guide)
+
+For this course, students usually choose models by VRAM first.
+
+Approximate VRAM per GPU architecture in this cluster:
+
+- `pascal`: about 8 GB VRAM
+- `turing`: about 24 GB VRAM
+- `ampere`: about 40 GB VRAM
+- `hopper`: about 80 GB VRAM
+
+Examples from Ollama model sizes (library pages):
+
+- `gpt-oss:20b` is about 14 GB
+- `gpt-oss:120b` is about 65 GB
+- `qwen3:30b` is about 19 GB
+- `qwen3.5:27b` is about 17 GB
+- `qwen3.5:35b` is about 24 GB
+- `qwen2.5:32b` is about 20 GB
+- `qwen2.5:72b` is about 47 GB
+
+What this means in practice:
+
+- `turing` (24 GB): good default for `gpt-oss:20b`, `qwen3:30b`, `qwen3.5:27b`, `qwen2.5:32b`
+- `ampere` (40 GB): same models with more headroom; often more robust for longer contexts and near-limit models like `qwen3.5:35b`
+- `hopper` (80 GB): needed for very large models such as `gpt-oss:120b`; also fits `qwen2.5:72b`
+- `pascal` (8 GB): use smaller models (for example around 7B/8B class)
+
+Important: model file size is not the same as total runtime memory.
+Real memory usage also depends on context length, batching, and serving overhead.
+When in doubt, start one class smaller and verify with `nvidia-smi`.
+
+## 4) Partitions you should know
+
+- `general` (default): CPU jobs, short general compute
+- `gpu`: main GPU workloads
+
+Inspect live state any time:
 
 ```bash
-sbatch slurm.sh
+sinfo
 ```
 
-Check your jobs:
+## 5) Basic Slurm commands
 
 ```bash
-squeue -u $(whoami)
-```
+# show partitions/nodes
+sinfo
 
-Cancel a job:
+# show your jobs
+squeue -u "$USER"
 
-```bash
+# cancel a job
 scancel <JOBID>
 ```
 
-What the common SBATCH options mean:
+## 6) Interactive vs batch use
 
-- `--gres=gpu:turing:1`: request GPU resources (type `turing` here).
-- `--job-name`: job label shown in queues.
-- `--output`: file capturing stdout/stderr.
-- `--partition`: partition to run on (use `sinfo` to inspect).
-- `--mem`: memory reservation (e.g. `32G`).
-- `--nodelist=gpu-g2-1`: optional pin to a specific node.
+- Use `srun` for quick tests and debugging.
+- Use `sbatch` for reproducible runs and long jobs.
 
-## Interactive sessions (srun)
-
-For debugging or development you can request an interactive shell on a compute node:
+Example interactive session:
 
 ```bash
-srun --gres=gpu:turing:1 -p gpu --mem=50G --pty bash -i
+srun --partition=interactive --time=00:10:00 --pty bash -i
 ```
 
-This opens a shell on a `turing` node (e.g. `gpu-g2-1`) with one GPU and 50 GB memory. Use it to iterate quickly and test commands before submitting batch jobs.
-
-## Inspecting cluster resources
-
-- Show partitions and node availability:
+Example batch script header for one Ampere GPU:
 
 ```bash
-sinfo -s
+#SBATCH --partition=gpu
+#SBATCH --gres=gpu:ampere:1
+#SBATCH --cpus-per-task=2
+#SBATCH --mem=12G
+#SBATCH --time=00:30:00
 ```
 
-- Example partition layout (admin output may vary): the `gpu` and `interactive` partitions contain GPU nodes used for computations.
+## 7) How to choose GPU type
 
-- Nodes and typical GPU types:
+Use the smallest GPU that fits your model.
+A practical order for this course:
 
-  * `gpu-g1-1`, `gpu-g1-2`: Pascal GPUs (8 GB VRAM each)
-  * `gpu-g2-1`: Turing GPUs (24 GB VRAM each)
-  * `gpu-g3-1`: Turing GPUs (24 GB VRAM each)
-  * `gpu-g4-1`: Ampere GPUs (40 GB VRAM each)
+1. `turing` for most class exercises and medium models
+2. `ampere` for larger models or more context headroom
+3. `hopper` for very large models
 
-- Inspect configured generic resources (gres):
+If your job waits too long in queue, try a different compatible GPU type.
 
-```bash
-cat /etc/slurm/gres.conf
-```
+## 8) Common beginner issues
 
-Use matching `--gres=gpu:<type>:<count>` in your SBATCH header to request the appropriate GPU type.
+- Requesting unavailable resources (wrong `--gres` type/count).
+- Forgetting to activate your Python venv inside job scripts.
+- Running long experiments in interactive sessions.
+- Not checking log files after job completion.
 
-## Useful commands and tips
+## 9) Recommended next guides
 
-- Tail job output as it runs:
-
-```bash
-tail -f logs/my_job.out
-```
-
-- Show recent jobs and status:
-
-```bash
-squeue -u $(whoami)
-```
-
-- When debugging, test inside an interactive `srun` session, then convert to `sbatch` for long runs.
-- If you need specific modules loaded or access issues, contact the cluster admins or instructors.
-
-## Checklist for students
-
-1. Enable WireGuard VPN if connecting remotely.
-2. SSH to `cluster.dieterichlab.org` and `cd` to your project folder.
-3. Load required modules (ask instructors if unsure).
-4. Use `srun` interactively for debugging and `sbatch` for production runs.
-
-## References & support
-
-- Cluster Wiki: https://redmine.dieterichlab.org/projects/infrastructure/wiki/Server
-- Slurm documentation: https://slurm.schedmd.com/documentation.html
-
-If anything is unclear or a resource is missing, raise an issue with the instructors or cluster admins.
+1. [instructions/venv.md](venv.md)
+2. [instructions/slurm.md](slurm.md)
+3. [instructions/ollama.md](ollama.md)
