@@ -31,7 +31,7 @@ Use this file as your map through the other guides.
 2. SSH login works:
 
 ```bash
-ssh <username>@cluster.dieterichlab.org
+ssh <username>@cluster.internal
 ```
 
 3. Create and activate your venv:

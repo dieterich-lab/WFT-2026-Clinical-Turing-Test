@@ -49,7 +49,7 @@ AllowedIPs = 129.206.148.251/32,10.250.135.0/24,10.250.140.0/24,10.250.100.0/24
 After activating WireGuard, test cluster access:
 
 ```bash
-ssh <username>@cluster.dieterichlab.org
+ssh <username>@cluster.internal
 ```
 
 If this works, your VPN setup is ready.

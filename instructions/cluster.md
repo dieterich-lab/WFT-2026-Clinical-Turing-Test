@@ -8,7 +8,7 @@ If you are outside the clinic network, connect WireGuard first.
 Then log in:
 
 ```bash
-ssh <username>@cluster.dieterichlab.org
+ssh <username>@cluster.internal
 ```
 
 If SSH does not work, fix VPN/access first before debugging Slurm jobs.

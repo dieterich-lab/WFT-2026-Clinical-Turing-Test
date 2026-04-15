@@ -25,7 +25,7 @@ Before opening JupyterHub, make sure all of the following are true:
 3. You can log in via SSH.
 
 ```bash
-ssh <username>@cluster.dieterichlab.org
+ssh <username>@cluster.internal
 ```
 
 Your first SSH login is important so your home directory and permissions are initialized correctly.
@@ -108,7 +108,7 @@ pip freeze > requirements.txt
 - Test SSH access first:
 
 ```bash
-ssh <username>@cluster.dieterichlab.org
+ssh <username>@cluster.internal
 ```
 
 - If SSH fails, fix access first before troubleshooting JupyterHub.
