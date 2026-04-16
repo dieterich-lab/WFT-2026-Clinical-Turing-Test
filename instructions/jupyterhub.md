@@ -34,7 +34,7 @@ Your first SSH login is important so your home directory and permissions are ini
 
 Open:
 
-- https://jupyter.dieterichlab.org/
+- https://jupyter.internal
 
 Log in with your cluster credentials.
 
