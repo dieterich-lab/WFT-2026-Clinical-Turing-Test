@@ -153,11 +153,11 @@ gantt
     Final Presentation         :milestone, m3, 2026-06-25, 0d
 
     section Sprints (MedInf)
-    Sprint 1: Hello World & Setup      :2026-03-12, 2w
-    Sprint 2: Persona Machine Pipeline :2026-03-26, 2w
-    Sprint 3: Metrics & Questionnaire  :2026-04-09, 2w
-    Sprint 4: Clinical Turing Test     :2026-04-23, 2w
-    Sprint 5: Privacy Leakage Check    :2026-05-07, 3w
+    Sprint 1 - Hello World & Setup      :2026-03-12, 2w
+    Sprint 2 - Persona Machine Pipeline :2026-03-26, 2w
+    Sprint 3 - Metrics & Questionnaire  :2026-04-09, 2w
+    Sprint 4 - Clinical Turing Test     :2026-04-23, 2w
+    Sprint 5 - Privacy Leakage Check    :2026-05-07, 3w
 
     section Finalization
     Buffer & Final Evaluation          :2026-05-28, 4w
