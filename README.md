@@ -12,6 +12,72 @@ The goal of this project is to generate **realistic, privacy-safe discharge summ
 - **Validate**: Ensure clinical consistency (diagnoses, meds, follow-up) and safety (no PHI leakage).
 - **Evaluate**: Conduct a "Clinical Turing Test" where medical experts review mixed real/synthetic notes in a blind setup.
 
+**Visual Pipeline:** 
+
+```mermaid
+flowchart TD
+    %% --- Styling ---
+    classDef data fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+    classDef module fill:#fffde7,stroke:#f57f17,stroke-width:2px,color:#000
+    classDef eval fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000
+    classDef manual fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,stroke-dasharray: 5 5,color:#000
+
+    %% --- 1. Data Source ---
+    DB[("CARDIO:DE Corpus<br>(Real, De-identified)")]:::data
+
+    %% --- 2. Extraction Phase ---
+    subgraph Extraction ["1. Information Extraction (The Profiler)"]
+        direction LR
+        ExtrLLM{{"LLM Auto-Extraction<br>(For Mass Production)"}}:::module
+        JSONAuto["Auto-Generated<br>JSON Personas"]:::data
+        
+        GoldAnn["Manual Annotations<br>(Cardio:DE Gold Standard)"]:::manual
+        JSONManual["Verified Gold<br>JSON Personas (n=10)"]:::data
+        
+        ExtrLLM --> JSONAuto
+        GoldAnn --> JSONManual
+    end
+
+    DB -->|"Raw Text"| ExtrLLM
+    DB -.->|"Extract 10 Cases"| GoldAnn
+
+    %% --- 3. Generation Phase ---
+    subgraph Generation["2. Data-to-Text Generation (The Ghostwriter)"]
+        direction LR
+        Prompt{{"LLM Prompt:<br>Combine Facts + Style"}}:::module
+        Style["Random Style Template<br>(from Cardio:DE)"]:::data
+        SynthOut["Synthetic Discharge Summaries<br>(UKHD Style)"]:::data
+        
+        JSONAuto -.->|"Facts"| Prompt
+        JSONManual -->|"Facts (For Tests)"| Prompt
+        Style --> Prompt
+        Prompt --> SynthOut
+    end
+
+    DB -.->|"Provide Style"| Style
+
+    %% --- 4. Validation & Dual Testing Phase ---
+    subgraph Testing["3. Validation & Dual Turing Tests (The Critic & Emre)"]
+        direction TB
+        Critic{{"The Critic (Cycle Consistency)<br>Checks if Facts match Input JSON"}}:::module
+        
+        Test1["Turing Test 1: Unpaired<br>(10 Real + 10 Synth mixed)<br>Goal: Measure Global Realism"]:::eval
+        Test2["Turing Test 2: Paired<br>(10 Pairs: Real A vs Synth A')<br>Goal: Measure Data-to-Text Fidelity"]:::eval
+
+        Critic -->|"Passed Synth Letters"| Test1
+        Critic -->|"Passed Synth Letters"| Test2
+    end
+
+    SynthOut --> Critic
+    DB -.->|"10 Random Real Letters"| Test1
+    DB -.->|"10 Original Real Letters (A)"| Test2
+
+    %% --- Styling for Subgraphs ---
+    style Extraction fill:none,stroke:#999,stroke-width:1.5px
+    style Generation fill:none,stroke:#999,stroke-width:1.5px
+    style Testing fill:none,stroke:#999,stroke-width:1.5px
+```
+
 ## 🚀 Getting Started
 
 ### 1. Access & Environment
