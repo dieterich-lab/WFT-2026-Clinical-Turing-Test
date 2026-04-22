@@ -48,10 +48,10 @@ Bsp.
 ### 1. Extraction Level CORE
 CORE enthält alle stabilen Pflichtinformationen. Die Primary Diagnose ist vereinfacht, es gibt keine Scores und Zusatzinfos wie sie im original Arztbrief vorkommen. Diagnosetexte werden vor der Verwendung im CORE Level normalisiert, um Vergleichbarkeit zwischen Fällen zu gewährleisten. Die Normalisierung umfasst zwei Schritte:
 1. **Entfernung von Artefakten** z. B.:
-   - Pseudonymisierungsmarker (`<[Pseudo] ...>`)
-   - Tokenisierungsreste (`-LRB-`, `-RRB-`, `-UNK-`)
+   - Pseudonymisierungsmarker (<[Pseudo] ...>)
+   - Tokenisierungsreste (-LRB-, -RRB-, -UNK-)
    - Formatierungsfehler (z. B. doppelte Leerzeichen)
-2. **Vereinfachung im CORE-Level✱, nicht-essenzielle Zusatzmarker (z. B. `ED`) werden entfernt.
+2. **Vereinfachung im CORE-Level**, nicht-essenzielle Zusatzmarker (z.B. ED) werden entfernt.
 
 age: int | null,
 gender: "male" | "female" | "unknown",
