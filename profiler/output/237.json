@@ -1,0 +1,66 @@
+{
+  "persona_id": "persona_237",
+  "source_document_id": "237",
+  "metadata": {
+    "admission_date": "2039-08-16",
+    "discharge_date": null
+  },
+  "core": {
+    "age": 69,
+    "gender": "male",
+    "primary_diagnosis": "Paroxyxmales Vorhofflimmern",
+    "comorbidities": [
+      "Polyzythämia vera",
+      "Große Bosniak-1 Zysten beidseits",
+      "Sigmadivertikulose",
+      "Axiale Hiatushernie",
+      "Z.n. Antrumgastritis",
+      "Morbus Meni re"
+    ],
+    "discharge_medications": [
+      {
+        "drug": "Xarelto",
+        "dosage": "20mg",
+        "frequency": "1-0-0"
+      },
+      {
+        "drug": "Bisoprolol",
+        "dosage": "5mg",
+        "frequency": "1-0- -UNK-"
+      },
+      {
+        "drug": "Ramipril",
+        "dosage": "5mg",
+        "frequency": "1-0-1"
+      },
+      {
+        "drug": "Lercanidipin",
+        "dosage": "10mg",
+        "frequency": "0-0-1"
+      },
+      {
+        "drug": "Hydroxyurea",
+        "dosage": "500mg",
+        "frequency": "1-0-0"
+      },
+      {
+        "drug": "Betahistin",
+        "dosage": "3mg",
+        "frequency": "1-1-1"
+      }
+    ]
+  },
+  "extensions": {},
+  "validation": {
+    "schema_validation": {
+      "is_valid": true
+    },
+    "annotation_validation": {
+      "performed": false,
+      "status": "not_checked"
+    },
+    "manual_validation": {
+      "performed": false
+    }
+  }
+}
