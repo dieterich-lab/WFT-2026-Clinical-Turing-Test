@@ -277,11 +277,21 @@ Bsp.
     "previous_diagnoses": [
       {
         "name": "Myokardinfarkt",
-        "year": 2018
+        "year": 2022,
+        "evidence": [
+          {
+            "section": ""Anamnese"",
+            "quote": "Z.n. Myokardinfarkt 2022"
+          }
       },
       {
         "name": "Schlaganfall",
-        "year": 2020
+        "year": 2025
+        "evidence": [
+          {
+            "section": ""Anamnese"",
+            "quote": "Z.n. Schlaganfall 2025"
+          }
       }
     ],
     "anamnesis": [
