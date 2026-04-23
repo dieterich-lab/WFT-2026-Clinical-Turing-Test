@@ -1,0 +1,62 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+/beegfs/homes/sthuerwaechter/WFT-2026-Clinical-Turing-Test/venv/lib/python3.11/site-packages/torch/cuda/__init__.py:180: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 19094.68it/s]
+{
+  "Text Analyse": {
+    "Semantische Ähnlichkeit": "81.55%",
+    "Inhaltliche Deckung (Jaccard)": "35.53%",
+    "Lesbarkeitsindex (LIX)": {
+      "Original": 55.39634715674888,
+      "Synthetisch": 56.18759689922481,
+      "Differenz": 0.7912497424759266
+    },
+    "Nominalstil": {
+      "Original": 6.12,
+      "Synthetisch": 6.15,
+      "Differenz": 0.02
+    },
+    "Satzlängen-Varianz (Burstiness)": {
+      "Original": 86.33,
+      "Synthetisch": 56.24,
+      "Verhältnis": 1.53
+    },
+    "ROUGE-Scores": {
+      "rouge1": 0.5156739811912227,
+      "rouge2": 0.2558869701726844,
+      "rougeL": 0.3573667711598746
+    }
+  },
+  "LLM Analyse": {
+    "stil_vergleich": 85,
+    "medizinische_praezision": true,
+    "konsistenz_bewertung": 92
+  },
+  "JSON Vergleich": {
+    "Ähnlichkeit der extrahierten Infos": 0.6430921052631579,
+    "Unterschiedliche Werte": {
+      "Diagnosen": {
+        "original": [
+          "Z.n. COVID-19 <[Pseudo] 12/2032>",
+          "Hyperreagibles Bronchialsystem ED <[Pseudo] 03/2032>",
+          "Z.n. TIA ohne Residuen <[Pseudo] 2026>",
+          "Z.n. Bandscheibenvorfall in der B-ORG und B-ORG",
+          "LRB- konservative Therapie -RRB-"
+        ],
+        "synthetic": [
+          "Belastungsdyspnoe (NYHA-Stadium II), V.a. Post-COVID-Syndrom (Infektion 12/2032)",
+          "Leichtgradige Mitralklappeninsuffizienz",
+          "Z.n. transienter ischämischer Attacke (TIA) in 2026, aktuell residuenfrei",
+          "Hyperreagibles Bronchialsystem (Erstdiagnose 03/2032)",
+          "Z.n. Bandscheibenvorfall (B-ORG), konservativ behandelt",
+          "Kardiovaskuläres Risikoprofil: Ehemaliger Nikotinabusus (ca. 20 py), aktuell karent",
+          "Pollenallergie"
+        ]
+      }
+    }
+  }
+}
+Done.
+Stopping Ollama (pid=88634)

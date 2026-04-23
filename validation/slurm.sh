@@ -49,6 +49,6 @@ done
 
 # ---------- Run Python file ----------
 source /home/sthuerwaechter/WFT-2026-Clinical-Turing-Test/venv/bin/activate
-python llm_validation.py
+python discharge_letter_evaluator.py
 
 echo "Done."

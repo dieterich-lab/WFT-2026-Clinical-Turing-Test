@@ -1,2 +1,2 @@
-pip install ollama spacy textstat numpy scikit-learn
+pip install ollama spacy textstat numpy scikit-learn sentence-transformers rouge-score
 python -m spacy download de_core_news_md

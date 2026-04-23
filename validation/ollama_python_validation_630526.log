@@ -1,0 +1,41 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+{
+  "metriken": {
+    "semantische_aehnlichkeit": "88.86%",
+    "inhaltliche_deckung_jaccard": "35.53%",
+    "lix_differenz": 0.7912497424759266,
+    "nominalstil_differenz": 0.02,
+    "satzvarianz_verhaeltnis": 1.53
+  },
+  "llm_analyse": {
+    "stil_vergleich": 80,
+    "medizinische_praezision": true,
+    "konsistenz_bewertung": 90
+  }
+}
+{
+  "ähnlichkeit der extrahierten infos": 0.6501547987616099,
+  "unterschiede": {
+    "Diagnosen": {
+      "brief_1": [
+        "Z.n. COVID-19 <[Pseudo] 12/2032>",
+        "Hyperreagibles Bronchialsystem ED <[Pseudo] 03/2032>",
+        "Z.n. TIA ohne Residuen <[Pseudo] 2026>",
+        "Z.n. Bandscheibenvorfall in der B-ORG und B-ORG",
+        "LRB- konservative Therapie -RRB-"
+      ],
+      "brief_2": [
+        "Belastungsdyspnoe (NYHA-Stadium II), V.a. Post-COVID-Syndrom (Infektion 12/2032)",
+        "Leichtgradige Mitralklappeninsuffizienz",
+        "Z.n. transienter ischämischer Attacke (TIA) in 2026, aktuell residuenfrei",
+        "Hyperreagibles Bronchialsystem (Erstdiagnose 03/2032)",
+        "Z.n. Bandscheibenvorfall (B-ORG), konservativ behandelt",
+        "Kardiovaskuläres Risikoprofil: Ehemaliger Nikotinabusus (ca. 20 py), aktuell karent",
+        "Pollenallergie"
+      ]
+    }
+  }
+}
+Done.
+Stopping Ollama (pid=2148424)

@@ -1,0 +1,50 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+{
+  "Text Analyse": {
+    "semantische_aehnlichkeit": "88.86%",
+    "inhaltliche_deckung_jaccard": "35.53%",
+    "lix_original": 55.39634715674888,
+    "lix_synthetisch": 56.18759689922481,
+    "lix_differenz": 0.7912497424759266,
+    "nominalstil_original": 6.12,
+    "nominalstil_synthetisch": 6.15,
+    "nominalstil_differenz": 0.02,
+    "satzvarianz_original": 86.33,
+    "satzvarianz_synthetisch": 56.24,
+    "satzvarianz_verhaeltnis": 1.53,
+    "rouge1": 0.5156739811912227,
+    "rouge2": 0.2558869701726844,
+    "rougeL": 0.3573667711598746
+  },
+  "LLM Analyse": {
+    "stil_vergleich": 80,
+    "medizinische_praezision": true,
+    "konsistenz_bewertung": 90
+  },
+  "JSON Vergleich": {
+    "ähnlichkeit_der_extrahierten_infos": 0.6430921052631579,
+    "unterschiedliche_werte": {
+      "Diagnosen": {
+        "original": [
+          "Z.n. COVID-19 <[Pseudo] 12/2032>",
+          "Hyperreagibles Bronchialsystem ED <[Pseudo] 03/2032>",
+          "Z.n. TIA ohne Residuen <[Pseudo] 2026>",
+          "Z.n. Bandscheibenvorfall in der B-ORG und B-ORG",
+          "LRB- konservative Therapie -RRB-"
+        ],
+        "synthetic": [
+          "Belastungsdyspnoe (NYHA-Stadium II), V.a. Post-COVID-Syndrom (Infektion 12/2032)",
+          "Leichtgradige Mitralklappeninsuffizienz",
+          "Z.n. transienter ischämischer Attacke (TIA) in 2026, aktuell residuenfrei",
+          "Hyperreagibles Bronchialsystem (Erstdiagnose 03/2032)",
+          "Z.n. Bandscheibenvorfall (B-ORG), konservativ behandelt",
+          "Kardiovaskuläres Risikoprofil: Ehemaliger Nikotinabusus (ca. 20 py), aktuell karent",
+          "Pollenallergie"
+        ]
+      }
+    }
+  }
+}
+Done.
+Stopping Ollama (pid=87132)
