@@ -1,0 +1,82 @@
+{
+  "persona_id": "persona_2",
+  "source_document_id": "2",
+  "metadata": {
+    "admission_date": "2035-07-24",
+    "discharge_date": null
+  },
+  "core": {
+    "age": 68,
+    "gender": "male",
+    "primary_diagnosis": "Postmyokarditische dilatative Kardiomyopathie",
+    "comorbidities": [
+      "Koronare Herzerkrankung ohne höhergradige Stenosen ( B-OTHER v. )",
+      "Leicht- bis mittelgradig depressive Episode"
+    ],
+    "discharge_medications": [
+      {
+        "drug": "ASS",
+        "dosage": "100 mg",
+        "frequency": "1-0-0"
+      },
+      {
+        "drug": "Amiodaron",
+        "dosage": "200 mg",
+        "frequency": "1-0-0"
+      },
+      {
+        "drug": "Carvedilol",
+        "dosage": "12,5 mg",
+        "frequency": "2-0-2"
+      },
+      {
+        "drug": "Ramipril",
+        "dosage": "5 mg",
+        "frequency": "1-0-1"
+      },
+      {
+        "drug": "Spironolacton",
+        "dosage": "25 mg",
+        "frequency": "2-0-0"
+      },
+      {
+        "drug": "Atorvastatin",
+        "dosage": "20 mg",
+        "frequency": "0-0-1"
+      },
+      {
+        "drug": "Citalopram",
+        "dosage": "20 mg",
+        "frequency": "1-0-0"
+      },
+      {
+        "drug": "Spiriva",
+        "dosage": "2,5 µg",
+        "frequency": "2-0-0"
+      },
+      {
+        "drug": "Foster",
+        "dosage": "Dosis unbekannt",
+        "frequency": "1-0-1"
+      },
+      {
+        "drug": "Salbutamol",
+        "dosage": null,
+        "frequency": "bei Bedarf"
+      }
+    ]
+  },
+  "extensions": {},
+  "validation": {
+    "schema_validation": {
+      "is_valid": true
+    },
+    "annotation_validation": {
+      "performed": false,
+      "status": "not_checked"
+    },
+    "manual_validation": {
+      "performed": false
+    }
+  }
+}
