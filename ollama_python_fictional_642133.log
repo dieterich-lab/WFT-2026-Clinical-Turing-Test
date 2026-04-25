@@ -1,0 +1,51 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+Model: llama3.1:8b
+
+Response:
+
+**Entlassungsbrief**
+
+**Patient:** Herr Müller, geboren am 12.02.1948
+**Alter:** 75 Jahre
+**Krankenhaus-Nummer:** 2023/123456
+**Entlassungsdatum:** 15.03.2023
+
+**Information zum Patienten:**
+Herr Müller wurde am 05.03.2023 in unsere Klinik eingeliefert mit der Diagnose "Herzinsuffizienz" und "Atrialer Fibrillation". Er wohnt allein in seiner Wohnung und ist bei bestem Willen, aber aufgrund seines Alters und der zugrunde liegenden Gesundheitszustände benötigt er regelmäßige Betreuung.
+
+**Diagnosen:**
+
+1.  Herzinsuffizienz (NYHA Klasse III)
+2.  Atrialer Fibrillation
+3.  Hypertonie (Blutdruck 160/90 mmHg)
+
+**Anamnese:**
+Der Patient hat eine lange Vorgeschichte von arterieller Hypertonie und koronarer Herzkrankheit. In den letzten 6 Monaten wurde seine Symptomatik durch eine zunehmende Atemnot und Erschöpfungssymptome im Alltag beeinträchtigt. Er berichtet über mehrere Schwindel- und Ohne-Symptome, die in letzter Zeit häufiger auftreten.
+
+**Befunde:**
+- Blutdruck: 160/90 mmHg
+- Pulsschlag: 110/min mit Atrialer Fibrillation
+- Körpertemperatur: 36,8°C
+- Sauerstoffsättigung (SpO2): 92%
+
+**Verlauf der Behandlung:**
+Der Patient erhielt eine intensive medikamentöse Behandlung einschließlich einer intravenösen Gabe von Furosemid zur Reduzierung der Flüssigkeitsbelastung, sowie Betablocker und Ratenzadil zur Kontrolle des Herzrhythmus und Blutdruck. Darüber hinaus wurde eine stationäre Physiotherapie angeboten, um die körperliche Belastbarkeit zu verbessern.
+
+**Medikation zum Entlassungsdatum:**
+
+1.  Furosemid (Lasix): oral, 20 mg zweimal täglich
+2.  Betablocker (Metoprolol): oral, 50 mg dreimal täglich
+3.  Ratenzadil (Ratitilin): oral, 100 mg einmal täglich
+
+**Empfehlungen:**
+Wir empfehlen Herrn Müller eine weitere ambulante Behandlung und Überwachung durch seinen Hausarzt. Insbesondere sollte der Patient regelmäßig seinen Blutdruck und seine Herzfunktion überprüfen lassen, um sicherzustellen, dass die medikamentöse Behandlung effektiv ist. Darüber hinaus empfehlen wir eine Ernährungsumstellung mit einer reduzierten Natrium- und Kaliumaufnahme, sowie regelmäßige körperliche Aktivität unter Berücksichtigung der begrenzten Belastbarkeit aufgrund seiner Herzinsuffizienz.
+
+**Kontaktdaten:**
+Für weitere Fragen oder Anliegen stehen wir Ihnen gerne zur Verfügung. Bitte wenden Sie sich an unseren Hausarzt, Herrn Dr. med. J. Müller (Telefon: 0152-1234567).
+
+---
+
+Dieser Entlassungsbrief ist nur ein Beispiel und sollte nicht für reale Patienten verwendet werden.
+Done running your code
+Stopping Ollama (pid=224026)

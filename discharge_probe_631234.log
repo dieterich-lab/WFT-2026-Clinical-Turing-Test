@@ -1,0 +1,132 @@
+Starting Ollama on http://127.0.0.1:11434
+Ollama is ready
+NAME                             ID              SIZE      MODIFIED      
+qwen3.5:4b                       2a654d98e6fb    3.4 GB    23 hours ago     
+gpt-oss:latest                   17052f91a42e    13 GB     27 hours ago     
+llama3.1:latest                  46e0c10c039e    4.9 GB    4 weeks ago      
+glm-4.7-flash:q8_0               a035bf4bc812    31 GB     5 weeks ago      
+glm-4.7-flash:latest             d1a8a26252f1    19 GB     5 weeks ago      
+qwen3-next:latest                b2ebb986e4e9    50 GB     5 weeks ago      
+qwen3-embedding:latest           64b933495768    4.7 GB    5 weeks ago      
+qwen3:1.7b                       8f68893c685c    1.4 GB    2 months ago     
+qwen3:0.6b                       7df6b6e09427    522 MB    2 months ago     
+qwen:latest                      d53d04290064    2.3 GB    2 months ago     
+gemini-3-pro-preview:latest      91a1db042ba1    -         2 months ago     
+gemini-3-flash-preview:latest    ebade0d31690    -         2 months ago     
+mxbai-embed-large:335m           468836162de7    669 MB    5 months ago     
+qwen3:235b                       72840bddff91    142 GB    6 months ago     
+qwen2.5vl:72b                    05ea68274581    48 GB     7 months ago     
+qwen3:latest                     500a1f067a9f    5.2 GB    7 months ago     
+qwen2.5vl:32b                    3edc3a52fe98    21 GB     8 months ago     
+qwen2.5vl:latest                 5ced39dfa4ba    6.0 GB    8 months ago     
+llava:34b                        3d2d24f46674    20 GB     8 months ago     
+gemma3:latest                    a2af6cc3eb7f    3.3 GB    8 months ago     
+llama3.1:8b-regu_Q4_K_M          13fda97c6a01    4.9 GB    10 months ago    
+qwen3:32b                        e1c9f234c6eb    20 GB     10 months ago    
+qwen3:30b                        2ee832bc15b5    18 GB     10 months ago    
+qwen3:8b                         e4b5fd7f8af0    5.2 GB    10 months ago    
+qwen3:14b                        7d7da67570e2    9.3 GB    10 months ago    
+llama3.3:latest                  a6eb4748fd29    42 GB     10 months ago    
+llama3.3-70b-regu_tf:latest      1a349c3868e4    42 GB     10 months ago    
+llama3.1-8b-regu_tf:latest       0eb3a8806654    4.9 GB    10 months ago    
+llama3.3:70b                     a6eb4748fd29    42 GB     10 months ago    
+gemma3:27b-regu-Q4_K_M           cd332b800c1f    16 GB     12 months ago    
+all-minilm:latest                1b226e2802db    45 MB     12 months ago    
+mxbai-embed-large:latest         468836162de7    669 MB    12 months ago    
+gemma3:27b                       30ddded7fba6    17 GB     12 months ago    
+llama3.3:70b-regu_Q4_K_M         58b0a0d89fde    42 GB     13 months ago    
+deepseek-r1:8b                   28f8fd6cdc67    4.9 GB    14 months ago    
+deepseek-r1:70b                  0c1615a8ca32    42 GB     14 months ago    
+llama3.1:405b                    65fa6b82bfda    228 GB    18 months ago    
+llama3.1:8b                      42182419e950    4.7 GB    18 months ago    
+llama3.1:70b                     f9f6c437c417    39 GB     20 months ago    
+Step 1: Extracting structured data...
+Extracted:
+ ```json
+{
+  "Patienten_Alter": 77,
+  "Aufnahme_Datum": "2040-01-01",
+  "Entlassungs_Datum": null,
+  "Diagnose": [
+    {
+      "Name": "Aneurysma der Aorta ascendens"
+    },
+    {
+      "Name": "Bikuspide Aortenklappe"
+    }
+  ],
+  "Risiko_Faktoren": ["Arterielle Hypertonie"],
+  "Medikamente": [
+    {
+      "Name": "Candesartan/HCT",
+      "Dosis": "16mg/12,5mg",
+      "Frequenz": "1-0-0"
+    }
+  ],
+  "ekg": {
+    "Herzfrequenz": 60,
+    "PQ-Zeit": 194,
+    "QRS-Zeit": 115,
+    "QTc-Zeit": 418
+  },
+  "echo": {
+    "EF": 54,
+    "Befund": "Normal großer, septal betont hypertrophierter linker Ventrikel mit guter systolischer Pumpfunktion"
+  },
+  "labor": null,
+  "anamnesis": [
+    {
+      "Text": "Die ambulante Vorstellung erfolgt zur kardiologischen Verlaufskontrolle bei bekanntem Aneurysma der Aorta ascendens sowie funktionell bikuspider Aortenklappe. Im Alltag bestehe eine uneingeschränkte Belastbarkeit -LRB- mehrere Etagen Treppensteigen möglich -RRB- . Es bestehen keine pectanginösen Beschwerden in Ruhe oder bei Belastung. Palpitationen, Schwindel sowie stattgehabte Synkopen werden verneint. Es bestehe keine relevante Nykturie. Periphere Ödeme seien bei Gewichtskonstanz -LRB- 80 kg -RRB- nicht aufgefallen. Die regelmäßigen häuslichen Blutdruckmessungen -LRB- 2x täglich -RRB- ergäben Werte um 120/60mmHg."
+    }
+  ],
+  "Empfehlungen": [
+    {
+      "Text": "Wir bitten um eine weiterhin strenge Blutdruckeinstellung mit Blutdruckwerten <130/80mmHg und um eine Fortführung der häuslichen Blutdruckmessungen -LRB- mind. 2x/Tag -RRB- . Maximale Belastungsspitzen sind zu vermeiden, während moderate körperliche Aktivitäten präventiv wirken."
+    }
+  ]
+}
+```
+
+Step 2: Generating synthetic letter...
+
+Synthetic Letter:
+ Hier ist ein Entlassungsbrief auf Basis der strukturierten Daten:
+
+**Entlassungsbrief**
+
+**Patientenname:** Frau Anna Müller
+**Adresse:** Rosenstraße 12, 12345 Berlin
+**Geburtsdatum:** 10.02.1943
+**Alter:** 77 Jahre
+
+**Entlassungsdatum:** 05.03.2040
+**Kardiologische Abteilung:**
+Klinikum Charlottenburg, Wilhelm-Kirchner-Straße 1, 14053 Berlin
+**Arzt:** Dr. med. Sven Berger
+
+**Diagnose und Behandlung:**
+
+Frau Müller wurde am 01.01.2040 wegen eines Aneurysmas der Aorta ascendens sowie einer funktionell bikuspiden Aortenklappe aufgenommen. Während ihrer Hospitalisierung wurde sie mit Candesartan/HCT (16mg/12,5mg) behandelt.
+
+**Untersuchungsergebnisse:**
+
+- Elektrokardiogramm (ECG): Herzfrequenz 60/min, PQ-Zeit 194ms, QRS-Zeit 115ms, QTc-Zeit 418ms.
+- Echokardiografie: Linker Ventrikel: großer, septal betont hypertrophierter Ventrikel mit guter systolischer Pumpfunktion (EF 54%).
+
+**Anamnese:**
+
+Frau Müller gab an, dass sie in Ruhe und bei Belastung keine Beschwerden hat. Sie kann mehrere Etagen Treppensteigen und verneint Palpitationen, Schwindel sowie Synkopen. Es bestehen keine relevante Nykturie oder periphere Ödeme.
+
+**Empfehlungen:**
+
+Wir empfehlen Frau Müller, ihre Blutdruckeinstellung weiterhin streng zu führen mit Werten unter 130/80mmHg. Wir bitten sie, die häuslichen Blutdruckmessungen (mindestens 2x/Tag) fortzusetzen. Moderne körperliche Aktivitäten sind präventiv wirksam.
+
+**Abschluss:**
+
+Frau Müller ist zur weiteren Verlaufskontrolle bei einem Kardiologen zu empfehlen. Wir bitten sie, sich regelmäßig an diese Empfehlungen zu halten.
+
+Mit freundlichen Grüßen,
+Dr. Sven Berger
+Klinikum Charlottenburg
+Done.
+Stopping Ollama (pid=2438375)
